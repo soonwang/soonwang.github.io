@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -90,7 +90,7 @@
 <meta property="og:url" content="https://wangsong3635.cn/2017/02/09/javascript-some-function/index.html">
 <meta property="og:site_name" content="王松の小站">
 <meta property="og:description" content="将#ffffff转化成rgb(255,255,255)12345function colorTranslator(str) &amp;#123;  var arrColor = str.slice(1).match(/\w&amp;#123;2&amp;#125;/g)  return &apos;agb(&apos;+ arrColor.map(item =&amp;gt; parseInt(item, 16) || 0).join(&apos;,&apos;) +">
-<meta property="og:updated_time" content="2017-02-09T06:42:23.430Z">
+<meta property="og:updated_time" content="2017-02-09T07:45:38.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript-some-function">
 <meta name="twitter:description" content="将#ffffff转化成rgb(255,255,255)12345function colorTranslator(str) &amp;#123;  var arrColor = str.slice(1).match(/\w&amp;#123;2&amp;#125;/g)  return &apos;agb(&apos;+ arrColor.map(item =&amp;gt; parseInt(item, 16) || 0).join(&apos;,&apos;) +">
@@ -107,7 +107,7 @@
     motion: true,
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -130,7 +130,7 @@
   <title> javascript-some-function | 王松の小站 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -187,7 +187,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
           </a>
         </li>
       
@@ -197,7 +197,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -207,7 +207,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -277,7 +277,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-09T14:22:31+08:00">
                 2017-02-09
@@ -326,6 +326,7 @@
 
       
         <h4 id="将-ffffff转化成rgb-255-255-255"><a href="#将-ffffff转化成rgb-255-255-255" class="headerlink" title="将#ffffff转化成rgb(255,255,255)"></a>将#ffffff转化成rgb(255,255,255)</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">colorTranslator</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arrColor = str.slice(<span class="number">1</span>).match(<span class="regexp">/\w&#123;2&#125;/g</span>)</div><div class="line">  <span class="keyword">return</span> <span class="string">'agb('</span>+ arrColor.map(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">16</span>) || <span class="number">0</span>).join(<span class="string">','</span>) +<span class="string">')'</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(colorTranslator(<span class="string">'#ffffff'</span>))</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h4 id="将’get-element-by-id’转化成驼峰式’getElementById’"><a href="#将’get-element-by-id’转化成驼峰式’getElementById’" class="headerlink" title="将’get-element-by-id’转化成驼峰式’getElementById’"></a>将’get-element-by-id’转化成驼峰式’getElementById’</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = <span class="string">'get-element-by-id'</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> camel = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> newStr = <span class="string">''</span></div><div class="line">  str.split(<span class="string">'-'</span>).map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span>(index === <span class="number">0</span>) &#123;</div><div class="line">      newStr += item</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      newStr += item.charAt(<span class="number">0</span>).toUpperCase() + item.slice(<span class="number">1</span>)</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  <span class="keyword">return</span> newStr</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(camel(foo))</div></pre></td></tr></table></figure>
 <p>Vue里的做法是通过正则表达式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo = <span class="string">'get-element-by-id'</span></div><div class="line"><span class="keyword">var</span> camelizeRE = <span class="regexp">/-(\w)/g</span></div><div class="line"><span class="keyword">var</span> camelize = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> str.replace(camelizeRE, (_, c) =&gt; c ? c.toUpperCase() : <span class="string">''</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(camelize(foo))</div></pre></td></tr></table></figure></p>
 
@@ -343,7 +344,7 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作</div>
+    <div>如果对您有帮助，请支持</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
       <span>赏</span>
     </button>
@@ -371,22 +372,6 @@
     <footer class="post-footer">
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/01/20/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -436,10 +421,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            站点概览
           </li>
         </ul>
       
@@ -457,8 +442,8 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
@@ -526,11 +511,11 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
