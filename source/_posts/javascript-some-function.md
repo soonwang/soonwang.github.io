@@ -2,6 +2,7 @@
 title: 记录一些函数
 date: 2017-02-09 14:22:31
 tags:
+  - javascript
 ---
 #### 将#ffffff转化成rgb(255,255,255)
 ``` javascript
