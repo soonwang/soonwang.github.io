@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 王松の小站
+title: soonwang's blog
 subtitle: 人丑就要多读书
 description:
-author: 王松
+author: soonwang
 language: zh-Hans
 timezone:
 
@@ -69,6 +69,18 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:wangsong3635/wangsong3635.github.io.git
+  repo: https://github.com/wangsong3635/wangsong3635.github.io.git
   branch: master
   message: auto-deploy
+
+  # Algolia Search
+algolia:
+  appId: R5S3AVTPF0
+  apiKey: 7ec29f1154ab3cab11507af922256af5
+  adminApiKey: d5a3c3fbae80dc03587afdd6b8d3424f
+  indexName: soonwangblog
+  fields:
+    - title
+    - slug
+    - path
+    - content:strip

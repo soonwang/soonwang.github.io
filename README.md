@@ -6,7 +6,18 @@
   hexo new [layout] <title>
 ```
 
+### 起server
+
+```
+  hexo server
+```
+
+### 更新搜索
+```
+  hexo clean && hexo algolia
+```
+
 ### 发布语句
 ``` bash
-  hexo clean && hexo g && gulp clean && gulp && hexo d
+  hexo clean && hexo algolia && hexo g && gulp clean && gulp && hexo d
 ```

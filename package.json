@@ -5,6 +5,11 @@
   "hexo": {
     "version": "3.3.1"
   },
+  "scripts": {
+    "publish": "hexo clean && hexo algolia && hexo g && gulp clean && gulp && hexo d",
+    "dev": "hexo server",
+    "search": "hexo clean && hexo algolia"
+  },
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
@@ -14,6 +19,7 @@
     "gulp-shell": "^0.5.2",
     "gulp-uglify": "^2.0.1",
     "hexo": "^3.2.0",
+    "hexo-algoliasearch": "^0.2.3",
     "hexo-deployer-git": "^0.2.0",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-category": "^0.1.3",
