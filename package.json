@@ -6,7 +6,7 @@
     "version": "3.3.1"
   },
   "scripts": {
-    "publish": "hexo clean && hexo algolia && hexo g && gulp clean && gulp && hexo d",
+    "publish": "hexo clean && hexo g && gulp clean && gulp && hexo d",
     "dev": "hexo server",
     "search": "hexo clean && hexo algolia"
   },

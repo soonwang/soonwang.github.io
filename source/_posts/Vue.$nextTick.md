@@ -1,3 +1,11 @@
+---
+title: Vue.$nextTick浅谈
+date: 2018-08-05 20:02:11
+tags:
+  - Vue
+  - javascript
+---
+
 依稀记得第一次接触Vue.$nextTick是在之前某个项目从Vue 1.x升级到Vue 2.x时，发现vue实例的生命周期钩子函数都变了。查阅Vue官方提供的升级文档时发现，ready被mounted钩子函数替代，文档还特别提出，mounted并不保证钩子函数中的this.$el在document中，需要使用vm.$nextTick，那时起就觉得$nextTick好神奇。今天就来谈（xia）谈（che）Vue的异步实现$nextTick。
 
 ## 0 浏览器事件循环机制
@@ -13,6 +21,8 @@
 event loop中有两种类型的任务队列，tasks（macroTasks）和mircroTasks。
 - tasks: 执行主线程js代码、网络请求、页面加载、输入、点击事件以及定时器事件（setTimeout,setIntervel,setImmediate）等。
 - microTasks: 更新应用程序状态的任务，常见的有promise，process.nextTick，MutationObserver，Object.observe等
+
+<!-- more -->
 
 ### 0.3 来做个题吧
 
