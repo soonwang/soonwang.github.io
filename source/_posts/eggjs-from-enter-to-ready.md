@@ -11,7 +11,10 @@ JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出�
 ## egg-bin dev
 
 运行一个egg项目，`npm run dev`在package.json文件里我们发现默认其实执行的是`egg-bin dev`。egg-bin原来是egg提供的一个开发时使用的命令行工具，翻开egg-bin的代码，我们可以看到egg-bin其实是基于[common-bin](http://npm.taobao.org/package/common-bin)开发的，这里不赘述common-bin的用法，感兴趣的童鞋自行去查阅。在`lib/cmd/dev.js`里我们可以看到`egg-bin dev`执行的逻辑（去掉debug日志）：
-```
+
+<!-- more -->
+
+``` javascript
 * run(context) {
     const devArgs = yield this.formatArgs(context);
     const env = {
@@ -32,11 +35,11 @@ JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出�
 > forkNode(modulePath, args, opt) - fork child process, wrap with promise and gracefull exit
 
 forkNode函数用于fork一个子进程，第一个参数子进程要执行的文件的路径
-```
+``` javascript
 this.serverBin = path.join(__dirname, '../start-cluster');
 ```
 `start-cluster`文件里主要源码如下：
-```
+``` javascript
 const options = JSON.parse(process.argv[2]);
 require(options.framework).startCluster(options);
 ```
@@ -44,7 +47,7 @@ require(options.framework).startCluster(options);
 1. 获取参数options，重点是options.framework，即找到要加载的框架
 2. 执行require(framework).startCluster()，加载框架并执行startCluster
 回过头来继续看`lib/cmd/dev.js`，在`formatArgs`函数里我们找到获取framework的逻辑：
-```
+``` javascript
 const utils = require('egg-utils');
 argv.framework = utils.getFrameworkPath({
     framework: argv.framework,
@@ -56,7 +59,7 @@ argv.framework = utils.getFrameworkPath({
 ## egg-utils
 
 在`lib/framework.js`里我们很容易找到：
-```
+``` javascript
 function getFrameworkPath({ framework, baseDir }) {
   const pkgPath = path.join(baseDir, 'package.json');
   assert(fs.existsSync(pkgPath), `${pkgPath} should exist`);
@@ -96,7 +99,7 @@ function getFrameworkPath({ framework, baseDir }) {
 ## require('egg').startCluster(options)
 
 在egg的`index.js`文件的开头我们看到：
-```
+``` javascript
 /**
  * Start egg application with cluster mode
  * @since 1.0.0
@@ -109,7 +112,7 @@ exports.startCluster = require('egg-cluster').startCluster;
 ## egg-cluster
 
 首先是`index.js`中暴露的startCluster方法，也是整个egg-cluster的入口方法：
-```
+``` javascript
 exports.startCluster = function(options, callback) {
   new Master(options).ready(callback);
 };
@@ -132,7 +135,7 @@ egg-cluster
 ```
 ### Master
 先看master.js，下面截取出Master构造函数的关键代码：
-``` 
+``` javascript
 this.options = parseOptions(options);
 this.workerManager = new Manager();
 this.messenger = new Messenger(this);
@@ -159,7 +162,7 @@ this.workerManager.on('exception', ()=>{...})
 
 ### options.js
 
-```
+``` javascript
 function(options) {
     const defaults = {
         framework: '',
@@ -208,14 +211,14 @@ terminate.js文件主要用于终止进程，这里不再赘述。
 ### 启动agentWorker，agent_worker.js
 
 回到Master的构造函数中，从之前整理出的代码片段来看，实例化manager，messenger之后，注册ready的回调函数，接下来就是启动agent进程了。
-```
+``` javascript
 forkAgentWorker() {
     const agentWorker = child_process.fork('lib/agent_worker.js', args, opt);
     this.workerManager.setAgent(agentWorker);
 }
 ```
 上面片段仅截取关键部分。可以看出使用了node的原生模块`child_process`的fork方法。下面继续看`agent_worker.js`;
-```
+``` javascript
 const Agent = require(options.framework).Agent;
 const agent = new Agent(options);
 
@@ -235,7 +238,7 @@ agent.ready(err => {
 > this.once('agent-start', this.forkAppWorkers.bind(this));
 
 当agentWorker进程启动ready后，发送agent-start消息给master进程，master进程第一次收到后执行forkAppWorkers();
-```
+``` javascript
 forkAppWorkers() {
     cfork({
       exec: this.getAppWorkerFile(),
@@ -253,7 +256,7 @@ forkAppWorkers() {
 > cluster fork and restart easy way
 
 我们接着看简化版的app_worker.js
-```
+``` javascript
 const Application = require(options.framework).Application;
 const app = new Application(options);
 process.send({ to: 'master', action: 'realport', data: port });
