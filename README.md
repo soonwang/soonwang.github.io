@@ -19,5 +19,5 @@
 
 ### 发布语句
 ``` bash
-  hexo clean && hexo algolia && hexo g && gulp clean && gulp && hexo d
+  hexo clean && hexo g && gulp clean && gulp && hexo d
 ```
