@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>迭代器模式</title>
-    <url>/2017/02/15/iteration-js/</url>
-    <content><![CDATA[<p>记录迭代器模式</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> agg = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> index = <span class="number">0</span>,</span><br><span class="line">      data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],</span><br><span class="line">      length = data.length;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">next</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> element;</span><br><span class="line">      <span class="keyword">if</span>(!<span class="built_in">this</span>.hasNext()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      element = data[index];</span><br><span class="line">      index = index + <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">return</span> element;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">hasNext</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> index &lt; length;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rewind</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      index = <span class="number">0</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">current</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> data[index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(agg.hasNext()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(agg.next())</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>记录一些函数</title>
-    <url>/2017/02/09/javascript-some-function/</url>
-    <content><![CDATA[<h4 id="将-ffffff转化成rgb-255-255-255"><a href="#将-ffffff转化成rgb-255-255-255" class="headerlink" title="将#ffffff转化成rgb(255,255,255)"></a>将#ffffff转化成rgb(255,255,255)</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">colorTranslator</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arrColor = str.slice(<span class="number">1</span>).match(<span class="regexp">/\w&#123;2&#125;/g</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;agb(&#x27;</span>+ arrColor.map(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">16</span>) || <span class="number">0</span>).join(<span class="string">&#x27;,&#x27;</span>) +<span class="string">&#x27;)&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(colorTranslator(<span class="string">&#x27;#ffffff&#x27;</span>))</span><br></pre></td></tr></table></figure>
+    <title>BFC</title>
+    <url>/2019/09/02/css-bfc/</url>
+    <content><![CDATA[<h2 id="BFC-概念"><a href="#BFC-概念" class="headerlink" title="BFC 概念"></a>BFC 概念</h2><p>BFC 即 Block Formatting Contexts（块级格式化上下文），属于普通流定位。具有BFC特性的元素可以看做是隔离了的独立容器，容器里面的元素不会再布局上影响到外面的元素。</p>
 <span id="more"></span>
 
-<h4 id="将’get-element-by-id’转化成驼峰式’getElementById’"><a href="#将’get-element-by-id’转化成驼峰式’getElementById’" class="headerlink" title="将’get-element-by-id’转化成驼峰式’getElementById’"></a>将’get-element-by-id’转化成驼峰式’getElementById’</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> camel = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  str.split(<span class="string">&#x27;-&#x27;</span>).map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(index === <span class="number">0</span>) &#123;</span><br><span class="line">      newStr += item</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr += item.charAt(<span class="number">0</span>).toUpperCase() + item.slice(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> newStr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(camel(foo))</span><br></pre></td></tr></table></figure>
-<p>Vue里的做法是通过正则表达式</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"><span class="keyword">var</span> camelizeRE = <span class="regexp">/-(\w)/g</span></span><br><span class="line"><span class="keyword">var</span> camelize = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(camelizeRE, <span class="function">(<span class="params">_, c</span>) =&gt;</span> c ? c.toUpperCase() : <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(camelize(foo))</span><br></pre></td></tr></table></figure>
+<h2 id="BFC-触发条件"><a href="#BFC-触发条件" class="headerlink" title="BFC 触发条件"></a>BFC 触发条件</h2><ul>
+<li>body 根元素</li>
+<li>浮动元素：float 值非 none</li>
+<li>绝对定位元素：position absolute、fixed</li>
+<li>display： inline-block、table-cell、table-caption</li>
+<li>overflow 值 非 visible（hidden、auto、scroll）</li>
+</ul>
+<h2 id="BFC-特性-及-应用"><a href="#BFC-特性-及-应用" class="headerlink" title="BFC 特性 及 应用"></a>BFC 特性 及 应用</h2><ol>
+<li>在一个BFC中，两个相邻的块级盒子的垂直外边距会产生折叠。不同 BFC 不会 发生 margin 折叠</li>
+<li>在 BFC 中，每一个盒子的左外边缘（margin-left）会接触到 容器的 左边缘（border-left)</li>
+<li>可以阻止元素 被 浮动元素 覆盖</li>
+<li>清除元素内部浮动</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>javascript</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -126,8 +125,33 @@
 <h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>本文只是简单的从源码角度大致梳理了egg启动过程中的做的一些事情，很多东西还需要进一步深入研究，比如<code>agent_worker.js</code>使用的是<code>child_process</code>的fork方法，而<code>app_worker.js</code>使用的是cfork（使用的是原生的cluster的fork），需要研究下child_process和cluster。此外，本文还没涉及到Agent和Application的具体的实现，Agent和Application都是基于EggApplication，而EggApplication是基于EggCore的，EggCore继承于Koa。等等。</p>
 ]]></content>
       <tags>
-        <tag>javascript</tag>
         <tag>eggjs</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迭代器模式</title>
+    <url>/2017/02/15/iteration-js/</url>
+    <content><![CDATA[<p>记录迭代器模式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> agg = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> index = <span class="number">0</span>,</span><br><span class="line">      data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],</span><br><span class="line">      length = data.length;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">next</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> element;</span><br><span class="line">      <span class="keyword">if</span>(!<span class="built_in">this</span>.hasNext()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      element = data[index];</span><br><span class="line">      index = index + <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">return</span> element;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">hasNext</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> index &lt; length;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rewind</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      index = <span class="number">0</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">current</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> data[index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(agg.hasNext()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(agg.next())</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>javascript</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记录一些函数</title>
+    <url>/2017/02/09/javascript-some-function/</url>
+    <content><![CDATA[<h4 id="将-ffffff转化成rgb-255-255-255"><a href="#将-ffffff转化成rgb-255-255-255" class="headerlink" title="将#ffffff转化成rgb(255,255,255)"></a>将#ffffff转化成rgb(255,255,255)</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">colorTranslator</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arrColor = str.slice(<span class="number">1</span>).match(<span class="regexp">/\w&#123;2&#125;/g</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;agb(&#x27;</span>+ arrColor.map(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">16</span>) || <span class="number">0</span>).join(<span class="string">&#x27;,&#x27;</span>) +<span class="string">&#x27;)&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(colorTranslator(<span class="string">&#x27;#ffffff&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h4 id="将’get-element-by-id’转化成驼峰式’getElementById’"><a href="#将’get-element-by-id’转化成驼峰式’getElementById’" class="headerlink" title="将’get-element-by-id’转化成驼峰式’getElementById’"></a>将’get-element-by-id’转化成驼峰式’getElementById’</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> camel = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  str.split(<span class="string">&#x27;-&#x27;</span>).map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(index === <span class="number">0</span>) &#123;</span><br><span class="line">      newStr += item</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr += item.charAt(<span class="number">0</span>).toUpperCase() + item.slice(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> newStr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(camel(foo))</span><br></pre></td></tr></table></figure>
+<p>Vue里的做法是通过正则表达式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"><span class="keyword">var</span> camelizeRE = <span class="regexp">/-(\w)/g</span></span><br><span class="line"><span class="keyword">var</span> camelize = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(camelizeRE, <span class="function">(<span class="params">_, c</span>) =&gt;</span> c ? c.toUpperCase() : <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(camelize(foo))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -190,8 +214,8 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventAggregator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> events = [];</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getEvent</span>(<span class="params">eventName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> events.filter(<span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> event.getName() === eventName;</span><br><span class="line">    &#125;)[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.publish = <span class="function"><span class="keyword">function</span>(<span class="params">eventName, eventArgs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> event = getEvent(eventName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!event) &#123;</span><br><span class="line">      event = <span class="keyword">new</span> Event(eventName);</span><br><span class="line">      events.push(event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event.fire(eventArgs);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.subscribe = <span class="function"><span class="keyword">function</span>(<span class="params">eventName, handler</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> event = getEvent(eventName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!event) &#123;</span><br><span class="line">      event = <span class="keyword">new</span> Event(eventName);</span><br><span class="line">      events.push(event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    event.addHandler(handler);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>设计模式</tag>
         <tag>javascript</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -208,8 +232,8 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">Sandbox</span>(<span class="params">[<span class="string">&#x27;ajax&#x27;</span>, <span class="string">&#x27;event&#x27;</span>], <span class="keyword">function</span>(box)</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">typeof</span> box.foo); <span class="comment">//undefined  </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Sandbox(<span class="string">&#x27;ajax&#x27;</span>, <span class="string">&#x27;dom&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">box</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">typeof</span> box.attachEvent) <span class="comment">//undefined</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Sandbox(<span class="string">&#x27;*&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">box</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(box); <span class="comment">//所有方法对象</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>设计模式</tag>
         <tag>javascript</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
