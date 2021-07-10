@@ -6,7 +6,9 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "new": "hexo new draft",
+    "server": "hexo server --draft",
+    "publish": "hexo publish drfat"
   },
   "hexo": {
     "version": "5.4.0"
