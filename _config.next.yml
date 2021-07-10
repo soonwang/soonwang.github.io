@@ -1,0 +1,119 @@
+# ---------------------------------------------------------------
+# Site Information Settings
+# ---------------------------------------------------------------
+
+#scheme: Muse
+#scheme: Mist
+# scheme: Pisces
+scheme: Gemini
+
+# Put your favicon.ico into `hexo-site/source/` directory.
+favicon:
+  small: /favicon.ico
+  medium: /favicon.ico
+  apple_touch_icon: /favicon.ico
+  safari_pinned_tab: /favicon.ico
+
+# ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
+menu:
+  home: / || fa fa-home
+  #categories: /categories || fa fa-th
+  #about: /about || fa fa-user
+  archives: /archives || fa fa-archive
+  tags: /tags || fa fa-tags
+  #sitemap: /sitemap.xml
+  #commonweal: /404.html
+
+
+menu_settings:
+  icons: true
+  badges: true
+
+
+avatar:
+  url: /favicon.ico
+  rounded: true
+
+
+social:
+  GitHub: https://github.com/soonwang || fab fa-github
+
+social_icons:
+  icons_only: true
+
+
+footer:
+  powered: false
+  since: 2017
+  icon:
+    color: "#808080"
+
+post_meta:
+  updated_at:
+    enable: false
+
+# 站点优化
+vendors:
+  
+  internal: unpkg
+  
+  plugins: unpkg
+
+# Allow to cache content generation.
+cache:
+  enable: true
+
+# Remove unnecessary files after hexo generate.
+minify: true
+
+# Preconnect CDN for fonts and plugins.
+# For more information: https://www.w3.org/TR/resource-hints/#preconnect
+preconnect: true
+
+# Vanilla JavaScript plugin for lazyloading images.
+lazyload: true
+
+# Pangu Support
+pangu: true
+
+quicklink:
+  enable: true
+  home: true
+  archive: true
+  delay: true
+  timeout: 3000
+  priority: true
+
+
+# SEO Setting
+index_with_subtitle: true
+
+baidu_site_verification: qdOJEmHM1UmKGZho
+
+
+# Disqus
+disqus:
+  enable: true
+  shortname: http-soonwang-cn
+  count: true
+
+# Baidu Analytics ID
+baidu_analytics: fd40bba3204e081c0bcc48d0acf9f483
+
+# Local search
+# Dependencies: https://github.com/next-theme/hexo-generator-searchdb
+local_search:
+  enable: true
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false
