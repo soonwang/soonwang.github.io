@@ -25,6 +25,37 @@
       </tags>
   </entry>
   <entry>
+    <title>CSS 包含块</title>
+    <url>/2019/08/30/css-containing-block/</url>
+    <content><![CDATA[<h2 id="确定包含块"><a href="#确定包含块" class="headerlink" title="确定包含块"></a>确定包含块</h2><ol>
+<li>position 为 static 或 relative，包含块 就是它最近的祖先<strong>块</strong>元素（比如：inline-block, block 或 list-item）或格式化上下文（BFC）的内容区</li>
+<li>position 为 absolute，包含块就是它最近的position 不是 static的祖先元素的内容区 + padding区</li>
+<li>position fixed，包含块是viewport</li>
+</ol>
+<span id="more"></span>
+
+<blockquote>
+<p>如果 position 是 absolute 或 fixed，包含块也可能是由满足以下条件的最近父级元素的内容区+padding区</p>
+</blockquote>
+<ol>
+<li>transform | perspective | filter 值不为none</li>
+<li>will-change: transform | perspective | filter(filter只在Firefox上生效)</li>
+<li>contain: paint (目前仅有chrome新版本支持)</li>
+</ol>
+<h2 id="根据包含块-计算-百分值"><a href="#根据包含块-计算-百分值" class="headerlink" title="根据包含块 计算 百分值"></a>根据包含块 计算 百分值</h2><ol>
+<li>要计算height、top、bottom 的百分值，是相对于包含块的height值。</li>
+<li>计算 width、left、right、padding、margin 这些属性由包含块的widt属性值来计算。</li>
+</ol>
+<h2 id="位置影响-left-right-top-bottom"><a href="#位置影响-left-right-top-bottom" class="headerlink" title="位置影响(left, right, top, bottom)"></a>位置影响(left, right, top, bottom)</h2><ol>
+<li>position relative 元素：针对 元素本身的移动，本身元素所占的盒模型位置不变，即不会影响 周围元素的位置</li>
+<li>position absolute 元素：针对其包含块的相对位置。比如：left: 0，则 该元素距离 包含块的左侧为0px</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>eggjs启动从回车到ready</title>
     <url>/2018/10/27/eggjs-from-enter-to-ready/</url>
     <content><![CDATA[<p>JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出线程就会挂掉，业务也就不可访问了，所以一般我们在使用koa，express，thinkjs等其他node框架时一般会使用pm2去管理node进程，保证业务的高可用性。而阿里开源的egg框架本身自带的egg-cluster模板已经帮我们做了这个事情，egg的多进程模型和进程间通信官方文档上写的已经很清楚了，今天学习一下源码，希望有所收获。</p>
