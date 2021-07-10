@@ -182,7 +182,7 @@ function(options) {
 
 将manager.js里的属性和方法简单画成UML图形如下：
 
-![image](https://haitao.nos.netease.com/769ea022-22ba-4861-80c6-ebf837f6e429_176_315.svg)
+![image](https://kaola-haitao.oss.kaolacdn.com/769ea022-22ba-4861-80c6-ebf837f6e429_176_315.svg)
 
 Manager主要是用于管理agent和worker，有两个方法比较特殊，分别是count()和startCheck()，count()返回agent和worker的数量，而startCheck()每10秒执行一次，判断count返回的agent和worker数量是否大于0，出现3次异常，则发出exception事件，并不再执行。
 
@@ -190,7 +190,7 @@ Manager主要是用于管理agent和worker，有两个方法比较特殊，分�
 
 将messenger.js里的属性和方法简单画成UML图如下：
 
-![image](https://haitao.nos.netease.com/8347fbea-a656-4971-ab24-9eb8a43e05cb_189_143.svg)
+![image](https://kaola-haitao.oss.kaolacdn.com/8347fbea-a656-4971-ab24-9eb8a43e05cb_189_143.svg)
 
 Messenger类
 - send: 做了一些from和to的处理工作，并根据from和to，调用其他四个方法。

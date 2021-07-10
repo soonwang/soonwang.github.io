@@ -325,11 +325,11 @@ varnish的内置子程序 调用状态可以看官网的两张张图：
 
 - Client端：
 
-![image](https://haitao.nos.netease.com/dfe8e572-93e7-4474-a8d5-a97fab3b113b_1011_1387.svg)
+![image](https://kaola-haitao.oss.kaolacdn.com/dfe8e572-93e7-4474-a8d5-a97fab3b113b_1011_1387.svg)
 
 - Backend端：
 
-![image](https://haitao.nos.netease.com/9ef88c3c-bdb2-455c-afc0-df24e71e53c6_976_913.svg)
+![image](https://kaola-haitao.oss.kaolacdn.com/9ef88c3c-bdb2-455c-afc0-df24e71e53c6_976_913.svg)
 
 ## 请求中的几个对象
 

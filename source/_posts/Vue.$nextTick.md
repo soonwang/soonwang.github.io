@@ -76,7 +76,7 @@ setTimeout in promise1
 
 好了，上面解释的很清楚了，我就不翻译了（各位大大英语肯定都比我好，逃）
 下面放上一张网上盗的图
-![image](https://haitao.nos.netease.com/7957a9f2-0988-4d29-a87f-39956c294552_436_529.jpg)
+![image](https://kaola-haitao.oss.kaolacdn.com/7957a9f2-0988-4d29-a87f-39956c294552_436_529.jpg)
 
 总结起来就是，在一次事件循环里
 
@@ -157,7 +157,7 @@ macroTimerFunc会依次从setImmediate，MessageChannel，setTimeout中取，而
 ## 2. 响应式原理
 
 Vue使用Object.defineProperty把对象的属性转为getter/setter，这是响应式的核心，也是Vue不支持IE8以及更低版本浏览器的原因。下面是从官网盗的一张图。
-![image](https://haitao.nos.netease.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png)
+![image](https://kaola-haitao.oss.kaolacdn.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png)
 
 从上图可以知道，Data变化之后会Notify Watcher，而Watcher又会触发re-render。哦，原来是这样，但是还是不知道为什么修改Data之后一定要nextTick，Dom才会更新啊，继续低头扒代码...
 
@@ -165,7 +165,7 @@ Vue使用Object.defineProperty把对象的属性转为getter/setter，这是响�
 
 Vue的Observer类的实现在`src/core/observer/index.js`，为了省点墨水这里就不填代码了，少侠请[移步](https://github.com/vuejs/vue/blob/dev/src/core/observer/index.js)。
 
-![image](https://haitao.nos.netease.com/c1bb3289-6c83-4279-b2eb-559600384d20_2118_1262.jpg)
+![image](https://kaola-haitao.oss.kaolacdn.com/c1bb3289-6c83-4279-b2eb-559600384d20_2118_1262.jpg)
 
 上面这张图是我根据代码画的（这么丑一看就知道肯定自己画的，凑合着看）。
 
@@ -219,7 +219,7 @@ Dep类的实现在`src/core/observer/dep.js`，照例，少侠请[移步](https:
 
 照例，上图
 
-![image](https://haitao.nos.netease.com/a628c51f-1321-4228-8938-b5b2321d346f_800_1072.jpg)
+![image](https://kaola-haitao.oss.kaolacdn.com/a628c51f-1321-4228-8938-b5b2321d346f_800_1072.jpg)
 
 图上很明显（强行很明显），能找到上面Observer defineReactive方法用到的那几个方法，depend,notify,以及静态属性Dep.target，这下全明白了吧？并没有，Dep.target默认是null，不可能一直是null的呀，一直是null的话，那defineReactive的判断永远不会true啊。还有，subs是啥，notify里怎么还能update呢？哎，接着看吧emmmmm...
 
@@ -227,7 +227,7 @@ Dep类的实现在`src/core/observer/dep.js`，照例，少侠请[移步](https:
 
 Watcher类的实现在`src/core/observer/watcher.js`，你懂的，请[移步](https://github.com/vuejs/vue/blob/dev/src/core/observer/watcher.js)。
 
-![image](https://haitao.nos.netease.com/95ab0e44-2624-46fb-8fd6-f0c0f0313ba8_2326_1596.jpg)
+![image](https://kaola-haitao.oss.kaolacdn.com/95ab0e44-2624-46fb-8fd6-f0c0f0313ba8_2326_1596.jpg)
 
 Watcher有众多属性，其中deep,computed,user,sync,before对某些流程会有些影响的。对于普通的Watcher（非computed），constructor时会执行get方法。
 
@@ -311,7 +311,7 @@ export function queueWatcher (watcher: Watcher) {
 
 废话不多说，先上图
 
-![image](https://haitao.nos.netease.com/d6b0b8fb-d4e2-4a90-a8d3-fb9f987b6008_2144_1510.svg)
+![image](https://kaola-haitao.oss.kaolacdn.com/d6b0b8fb-d4e2-4a90-a8d3-fb9f987b6008_2144_1510.svg)
 
 `src/core/instance/index.js`是Vue实例的入口，Vue.prototype._init定义在`src/core/instance/init.js`，`_init`的在最后执行`vm.$mount()`,这里是将vue实例挂载到dom上的关键一步。
 
