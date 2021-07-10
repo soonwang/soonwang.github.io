@@ -69,7 +69,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/wangsong3635/wangsong3635.github.io.git
+  repo: https://github.com/soonwang/soonwang.github.io.git
   branch: master
   message: auto-deploy
 
