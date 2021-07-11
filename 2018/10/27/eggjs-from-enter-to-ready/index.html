@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"soonwang.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.6.1/source/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"soonwang.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.6.1/source/js/config.js"></script>
 <meta name="description" content="JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出线程就会挂掉，业务也就不可访问了，所以一般我们在使用koa，express，thinkjs等其他node框架时一般会使用pm2去管理node进程，保证业务的高可用性。而阿里开源的egg框架本身自带的egg-cluster模板已经帮我们做了这个事情，egg的多进程模型和进程间通信官方文档上写的已经很清楚了，今天学习一下源码，希望有所收">
 <meta property="og:type" content="article">
 <meta property="og:title" content="eggjs启动从回车到ready">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/769ea022-22ba-4861-80c6-ebf837f6e429_176_315.svg">
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/8347fbea-a656-4971-ab24-9eb8a43e05cb_189_143.svg">
 <meta property="article:published_time" content="2018-10-27T09:35:20.000Z">
-<meta property="article:modified_time" content="2021-07-10T17:24:40.376Z">
+<meta property="article:modified_time" content="2021-07-11T03:15:09.480Z">
 <meta property="article:author" content="王小木工">
 <meta property="article:tag" content="eggjs">
 <meta property="article:tag" content="javascript">
@@ -57,6 +57,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="有个小站" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -185,6 +186,9 @@
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/soonwang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;soonwang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
       </span>
   </div>
 
