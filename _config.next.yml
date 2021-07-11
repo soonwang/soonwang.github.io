@@ -4,8 +4,8 @@
 
 #scheme: Muse
 #scheme: Mist
-# scheme: Pisces
-scheme: Gemini
+scheme: Pisces
+# scheme: Gemini
 
 # Put your favicon.ico into `hexo-site/source/` directory.
 favicon:
@@ -25,7 +25,7 @@ menu:
   #about: /about || fa fa-user
   archives: /archives || fa fa-archive
   tags: /tags || fa fa-tags
-  #sitemap: /sitemap.xml
+  # sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404.html
 
 
@@ -41,6 +41,7 @@ avatar:
 
 social:
   GitHub: https://github.com/soonwang || fab fa-github
+  RSS: /atom.xml || fa fa-rss
 
 social_icons:
   icons_only: true
