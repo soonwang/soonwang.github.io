@@ -52,6 +52,10 @@ footer:
   since: 2017
   icon:
     color: "#808080"
+  beian:
+    enable: true
+    icp: 浙ICP备2021022449号-1
+
 
 post_meta:
   updated_at:
