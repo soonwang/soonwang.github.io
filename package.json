@@ -8,7 +8,7 @@
     "deploy": "hexo deploy",
     "new": "hexo new draft",
     "server": "hexo server --draft",
-    "publish": "hexo publish drfat"
+    "post": "hexo publish drfat"
   },
   "hexo": {
     "version": "5.4.0"

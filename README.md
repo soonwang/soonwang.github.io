@@ -18,6 +18,6 @@ $ yarn server
 ## 发布草稿
 
 ``` bash
-# yarn publish <title>
-$ yarn publish <css-bfc>
+# yarn post <title>
+$ yarn post <css-bfc>
 ```
