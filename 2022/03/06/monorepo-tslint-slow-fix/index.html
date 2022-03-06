@@ -20,28 +20,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"soonwang.cn","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.10.1/source/js/config.js"></script>
 
-    <meta name="description" content="BFC 概念BFC 即 Block Formatting Contexts（块级格式化上下文），属于普通流定位。具有BFC特性的元素可以看做是隔离了的独立容器，容器里面的元素不会再布局上影响到外面的元素。">
+    <meta name="description" content="业务发展了一年多，随着工程越来越大，发现在提交代码的时候，耗时会很久。最近在业务需求不是很紧的时候，就抽空研究了一下。 在提交代码的时候，触发了 husky 配置的 pre-commit的 git hooks。相信大家对于这个 git hook 不会很陌生，我们大部分需要团队合作的项目，为了约束大家的代码规范，通常会选择使用 husky 并且在提交前进行代码校验拦截，这个时机就刚好是 pre-co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BFC">
-<meta property="og:url" content="http://soonwang.cn/2019/09/02/css-bfc/index.html">
+<meta property="og:title" content="解决 monorepo 工程 husky 提交慢的问题">
+<meta property="og:url" content="http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/index.html">
 <meta property="og:site_name" content="有个小站">
-<meta property="og:description" content="BFC 概念BFC 即 Block Formatting Contexts（块级格式化上下文），属于普通流定位。具有BFC特性的元素可以看做是隔离了的独立容器，容器里面的元素不会再布局上影响到外面的元素。">
+<meta property="og:description" content="业务发展了一年多，随着工程越来越大，发现在提交代码的时候，耗时会很久。最近在业务需求不是很紧的时候，就抽空研究了一下。 在提交代码的时候，触发了 husky 配置的 pre-commit的 git hooks。相信大家对于这个 git hook 不会很陌生，我们大部分需要团队合作的项目，为了约束大家的代码规范，通常会选择使用 husky 并且在提交前进行代码校验拦截，这个时机就刚好是 pre-co">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-09-02T09:59:00.000Z">
+<meta property="article:published_time" content="2022-03-06T23:16:04.000Z">
 <meta property="article:modified_time" content="2022-03-06T15:17:46.349Z">
 <meta property="article:author" content="小木工">
-<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="eslint">
+<meta property="article:tag" content="monorepo">
+<meta property="article:tag" content="husky">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://soonwang.cn/2019/09/02/css-bfc/">
+<link rel="canonical" href="http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://soonwang.cn/2019/09/02/css-bfc/","path":"2019/09/02/css-bfc/","title":"BFC"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/","path":"2022/03/06/monorepo-tslint-slow-fix/","title":"解决 monorepo 工程 husky 提交慢的问题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>BFC | 有个小站</title>
+<title>解决 monorepo 工程 husky 提交慢的问题 | 有个小站</title>
   
 
   <script src="https://unpkg.com/hexo-theme-next@8.10.1/source/js/third-party/analytics/baidu-analytics.js"></script>
@@ -137,7 +139,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -150,7 +152,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC-%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">BFC 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC-%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">BFC 触发条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC-%E7%89%B9%E6%80%A7-%E5%8F%8A-%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">BFC 特性 及 应用</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -218,7 +219,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2019/09/02/css-bfc/">
+    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/favicon.ico">
@@ -231,12 +232,12 @@
     </span>
     
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="BFC | 有个小站">
+      <meta itemprop="name" content="解决 monorepo 工程 husky 提交慢的问题 | 有个小站">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          BFC
+          解决 monorepo 工程 husky 提交慢的问题
         </h1>
 
         <div class="post-meta-container">
@@ -247,7 +248,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-09-02 09:59:00" itemprop="dateCreated datePublished" datetime="2019-09-02T09:59:00+00:00">2019-09-02</time>
+      <time title="创建时间：2022-03-06 23:16:04" itemprop="dateCreated datePublished" datetime="2022-03-06T23:16:04+00:00">2022-03-06</time>
     </span>
 
   
@@ -266,8 +267,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/09/02/css-bfc/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/02/css-bfc/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2022/03/06/monorepo-tslint-slow-fix/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/03/06/monorepo-tslint-slow-fix/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -281,22 +282,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="BFC-概念"><a href="#BFC-概念" class="headerlink" title="BFC 概念"></a>BFC 概念</h2><p>BFC 即 Block Formatting Contexts（块级格式化上下文），属于普通流定位。具有BFC特性的元素可以看做是隔离了的独立容器，容器里面的元素不会再布局上影响到外面的元素。</p>
+        <p>业务发展了一年多，随着工程越来越大，发现在提交代码的时候，耗时会很久。最近在业务需求不是很紧的时候，就抽空研究了一下。</p>
+<p>在提交代码的时候，触发了 husky 配置的 <code>pre-commit</code>的 git hooks。相信大家对于这个 git hook 不会很陌生，我们大部分需要团队合作的项目，为了约束大家的代码规范，通常会选择使用 husky 并且在提交前进行代码校验拦截，这个时机就刚好是 <code>pre-commit</code> git hooks 的时机。</p>
+<p>所以问题一下就变得清晰起来，是 pre-commit 的 hook 执行的 lint 检查耗时过长。首先先介绍下我们工程的技术选型：yarn + learn + ts + react ，在正式排查前，猜测主要导致 lint 执行慢的因素大概有两个 monorepo（工程多、代码量大）、ts（ts 类型检查耗时）。</p>
+<p>在开始排查问题之前，先做了个小测试：只改动了一个 tsx 文件，并尝试提交，计时发现，从开始 commit 到 commit 完成，发现竟然耗时了 1min+，晕~。这里就猜想会不会是某个 lint 规则 或 某个 lint 插件导致运行很慢的？接下来就沿着这个思路进行排查。 </p>
 <span id="more"></span>
 
-<h2 id="BFC-触发条件"><a href="#BFC-触发条件" class="headerlink" title="BFC 触发条件"></a>BFC 触发条件</h2><ul>
-<li>body 根元素</li>
-<li>浮动元素：float 值非 none</li>
-<li>绝对定位元素：position absolute、fixed</li>
-<li>display： inline-block、table-cell、table-caption</li>
-<li>overflow 值 非 visible（hidden、auto、scroll）</li>
-</ul>
-<h2 id="BFC-特性-及-应用"><a href="#BFC-特性-及-应用" class="headerlink" title="BFC 特性 及 应用"></a>BFC 特性 及 应用</h2><ol>
-<li>在一个BFC中，两个相邻的块级盒子的垂直外边距会产生折叠。不同 BFC 不会 发生 margin 折叠</li>
-<li>在 BFC 中，每一个盒子的左外边缘（margin-left）会接触到 容器的 左边缘（border-left)</li>
-<li>可以阻止元素 被 浮动元素 覆盖</li>
-<li>清除元素内部浮动</li>
+<p>由于工程里使用 lint 规则是继承公司的统一 lint 规则配置，而在打开 node_modules 里这份统一的规则集时，人傻了，一大堆的规则，浩如烟海，（他们大概是把每一条规则都自己定制了一遍吧~）。之后更加坚定了之前的想法：规则太多、插件太多，有可能是由于某几个规则或者插件拉低了整个 lint 的速度。</p>
+<p>第一步是修改 .tslintrc.json，将文件里配置的工程规则去掉，然后添加上 eslint、react、tslint recommend 以及 airbnb 的 lint 规则。配置完成完成后，重新提交一个文件，发现速度很快，基本上是秒提交…… 这再次验证了之前的猜想：公司统一的lint规则中存在某些规则或者lint插件拖累了整个lint 的运行速度，而且由于一个文件的lint执行耗时 1min+，很可能是由于执行了 ts 编译，为了检测 ts 的类型这样。</p>
+<p>带着这样的疑问，打开了 typescript-eslint 的官网，果然在这里找到了答案</p>
+<p><a target="_blank" rel="noopener" href="https://typescript-eslint.io/docs/linting/type-linting#how-is-performance">Linting with Type Information | TypeScript ESLint</a></p>
+<p>原文如下：</p>
+<blockquote>
+<p>Well (for full disclosure) there is a catch; by including <code>parserOptions.project</code> in your config, you are essentially asking TypeScript to do a build of your project before ESLint can do its linting. For small projects this takes a negligible amount of time (a few seconds); for large projects, it can take longer (30s or more).</p>
+</blockquote>
+<blockquote>
+<p>Most of our users are fine with this, as they think the power of type-aware static analysis is worth it. Additionally, most users primarily consume lint errors via IDE plugins which, through some caching magic, do not suffer the same penalties. This means that generally they usually only run a complete lint before a push, or via their CI, where the extra time really doesn’t matter.</p>
+</blockquote>
+<blockquote>
+<p><strong>We strongly recommend you do use type-aware linting</strong>, but the above information is included so that you can make your own, informed decision.</p>
+</blockquote>
+<p>通过这篇文章，可以知道由于使用了「@typescript-eslint/recommended-requiring-type-checking」插件，会执行在执行 lint 前，为了校验 ts 的类型是否正确，从而去编译工程，而校验的范围由这么几个配置决定：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">   <span class="attr">root</span>: <span class="literal">true</span>,</span><br><span class="line">+  <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">+    <span class="attr">tsconfigRootDir</span>: __dirname,</span><br><span class="line">+    <span class="attr">project</span>: [<span class="string">&#x27;./tsconfig.json&#x27;</span>],</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中，parserOptions.tsconfigRootDir 告诉解析器项目根目录绝对路径，从而保证不会超过这个范围。parserOptions.project 告诉解析器配置文件 tsconfig.json 的相对路劲。</p>
+<p>了解了这个规则之后，再回到我们的之前的初衷上来：我们想要提高 lint 的运行速度。那么自然我们面临几个选择：</p>
+<ol>
+<li>去掉 type checking，不检查 ts 类型，这样就会免去 ts 的编译过程，速度极大提升</li>
+<li>控制 type checking 的范围，当前工程的配置是会编译 monorepo 的所有项目，那如果配置成每个子项目只 check 到自己的根目录下，对于我们多个子项目的 monorepo 来说，速度也会有明显提升（PS：这里还需要注意，如果各个子项目互相有依赖的话，这种配置可能导致修改了一个子项目的类型，一个子项目的 tslint 并不会校验出来……）</li>
 </ol>
+<p>第一种方案直接去掉类型校验，对于我们多人协作的项目来说不太可取，类型的校验还是比较重要的。所以我们选择了第二种！</p>
+<p>其实，还有一种思路是 husky 拦截时不做 type check，可以结合 gitlab 的 pipeline 去做相关校验的事情。这种方案的问题是校验之后了，开发者提交了之后再发现问题，去改的动力可能就没有那么强了~</p>
 
     </div>
 
@@ -306,21 +322,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CSS/" rel="tag"># CSS</a>
+              <a href="/tags/eslint/" rel="tag"># eslint</a>
+              <a href="/tags/monorepo/" rel="tag"># monorepo</a>
+              <a href="/tags/husky/" rel="tag"># husky</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/08/30/css-containing-block/" rel="prev" title="CSS 包含块">
-                  <i class="fa fa-chevron-left"></i> CSS 包含块
+                <a href="/2022/02/20/eslint-config-extends-vs-plugins/" rel="prev" title="搞清楚 eslint 的 plugins 和 extends">
+                  <i class="fa fa-chevron-left"></i> 搞清楚 eslint 的 plugins 和 extends
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/01/yarn-resolutions/" rel="next" title="Yarn resolutions">
-                  Yarn resolutions <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -397,7 +412,7 @@
 
 
   <script src="https://unpkg.com/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://soonwang.cn/2019/09/02/css-bfc/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/"}</script>
   <script src="https://unpkg.com/hexo-theme-next@8.10.1/source/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"http-soonwang-cn","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="https://unpkg.com/hexo-theme-next@8.10.1/source/js/third-party/comments/disqus.js"></script>
