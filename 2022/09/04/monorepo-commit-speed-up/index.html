@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"soonwang.cn","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/config.js"></script>
+
+    <meta name="description" content="随着业务的发展，monorepo 工程越来越大~  在 git commit 时耗时会比较久，耗时是大概 1min+； 在 git merge release 分支时耗时会更久，常常是 5min+;所以在实际开发过程中，会发现有部分同学偶尔会跳过 git hook，跳过 lint 校验拦截，提交有类型报错的代码。  为什么会这么慢？根据以往的工作经验，在没有用 ts 的工程里 lint 执行都是比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="monorepo commit 加速【第二弹】">
+<meta property="og:url" content="http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/index.html">
+<meta property="og:site_name" content="有个小站">
+<meta property="og:description" content="随着业务的发展，monorepo 工程越来越大~  在 git commit 时耗时会比较久，耗时是大概 1min+； 在 git merge release 分支时耗时会更久，常常是 5min+;所以在实际开发过程中，会发现有部分同学偶尔会跳过 git hook，跳过 lint 校验拦截，提交有类型报错的代码。  为什么会这么慢？根据以往的工作经验，在没有用 ts 的工程里 lint 执行都是比">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/feeling-slow.png">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/how-is-perform.png">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/lint-with-type.png">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/monorepo-commit-speed.excalidraw.png">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/eslintrc-config.png">
+<meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/eslint-cache-strategy.png">
+<meta property="article:published_time" content="2022-09-04T15:36:39.000Z">
+<meta property="article:modified_time" content="2022-09-04T07:37:35.826Z">
+<meta property="article:author" content="小木工">
+<meta property="article:tag" content="eslint">
+<meta property="article:tag" content="monorepo">
+<meta property="article:tag" content="husky">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/feeling-slow.png">
+
+
+<link rel="canonical" href="http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/","path":"2022/09/04/monorepo-commit-speed-up/","title":"monorepo commit 加速【第二弹】"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>monorepo commit 加速【第二弹】 | 有个小站</title>
+  
+
+  <script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?fd40bba3204e081c0bcc48d0acf9f483"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="有个小站" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">有个小站</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Hungry, Stay Foolish</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%BF%99%E4%B9%88%E6%85%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么会这么慢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%89%8D%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">以前的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E6%96%B9%E6%A1%88%E5%B0%9D%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">新方案尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE-lint-staged-%E6%97%B6%E5%85%B3%E9%97%AD-type-aware-rules"><span class="nav-number">3.1.</span> <span class="nav-text">1. 配置 lint-staged 时关闭 type-aware rules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE-CI"><span class="nav-number">3.2.</span> <span class="nav-text">2. 配置 CI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-Lint-%E5%86%85%E5%AD%98%E4%B8%8D%E5%A4%9F"><span class="nav-number">3.2.1.</span> <span class="nav-text">a. Lint 内存不够</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-Pipeline-%E8%80%97%E6%97%B6%E9%95%BF"><span class="nav-number">3.2.2.</span> <span class="nav-text">b. Pipeline 耗时长</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小木工"
+      src="/favicon.ico">
+  <p class="site-author-name" itemprop="name">小木工</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/soonwang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;soonwang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.ico">
+      <meta itemprop="name" content="小木工">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有个小站">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="monorepo commit 加速【第二弹】 | 有个小站">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          monorepo commit 加速【第二弹】
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-04 15:36:39" itemprop="dateCreated datePublished" datetime="2022-09-04T15:36:39+00:00">2022-09-04</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2022/09/04/monorepo-commit-speed-up/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/09/04/monorepo-commit-speed-up/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>随着业务的发展，monorepo 工程越来越大~</p>
+<ul>
+<li>在 <code>git commit</code> 时耗时会比较久，耗时是大概 1min+；</li>
+<li>在 <code>git merge release</code> 分支时耗时会更久，常常是 5min+;<br>所以在实际开发过程中，会发现有部分同学偶尔会跳过 git hook，跳过 lint 校验拦截，提交有类型报错的代码。</li>
+</ul>
+<h2 id="为什么会这么慢？"><a href="#为什么会这么慢？" class="headerlink" title="为什么会这么慢？"></a>为什么会这么慢？</h2><p>根据以往的工作经验，在没有用 ts 的工程里 lint 执行都是比较快的，所以这里猜想是 ts 的某些 rule 影响了整体的执行速度，终于在 typescript-eslint 找到了原因：<a target="_blank" rel="noopener" href="https://typescript-eslint.io/docs/linting/troubleshooting/#my-linting-feels-really-slow">Troubleshooting &amp; FAQs | TypeScript ESLint</a><br><img data-src="/images/monorepo-commit-speed-up/feeling-slow.png" alt="图片"><br><img data-src="/images/monorepo-commit-speed-up/how-is-perform.png" alt="图片"><br>如果我们在工程里开启了type-aware lint，那么执行 lint 的时间将会和构建时间一样长。<br>typescript-eslint  的一些 rules 是依赖 type information，所以在执行 lint 前会先编译一遍ts<br><a target="_blank" rel="noopener" href="https://typescript-eslint.io/docs/linting/typed-linting/">Linting with Type Information | TypeScript ESLint</a> 官网这里具体描述了type-aware 是如何开启的：<br><img data-src="/images/monorepo-commit-speed-up/lint-with-type.png" alt="图片"></p>
+<ol>
+<li>配置 <code>parserOptions</code>（tsconfigRoot、project）</li>
+<li>配置 <code>type-aware</code> 相关 rules</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="以前的优化"><a href="#以前的优化" class="headerlink" title="以前的优化"></a>以前的优化</h2><p>在之前也曾做过一次 commit lint 优化，当时的判断是 ts 类型信息校验是有必要的，贸然去掉 type 相关校验可能会有隐患。所以当时的思路是如何缩小编译范围。<br>默认在执行 lint 时，会构建整个 monorepo 的 ts 类型信息，项目越大，耗时会越久。<br>在这次优化里，是修改每个子项目里的 .eslintrc.js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">root</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">      <span class="attr">tsconfigRootDir</span>: __dirname,</span><br><span class="line">      <span class="attr">project</span>: [<span class="string">&#x27;./tsconfig.json&#x27;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新增了上面列出的两项配置：root、parserOptions，把需要构建生成 ts 类型的文件范围缩小到当前子目录。在实际测试中：</p>
+<ul>
+<li>配置前，提交一个 ts 文件耗时 1min 1s</li>
+<li>配置后，提交一个 ts 文件耗时 25s<br>基本是符合预期的，但是总体速度还是很慢，优化不明显，而且还带来额外的问题<br>带来的问题<br>由于缩小了构建生成 TS 类型的文件范围，所以当 features/common 和 features/pc 目录下文件类型有变化，而apps/clm 中未对应修改时，在 commit 时 lint 会忽略，不会拦截成功，存在一定风险。</li>
+</ul>
+<h2 id="新方案尝试"><a href="#新方案尝试" class="headerlink" title="新方案尝试"></a>新方案尝试</h2><p>本次优化的目标：加快本地提交的速度，同时不能牺牲代码质量<br>为了加快本地 commit 速度，需要把耗时最久的 type-aware 相关的 rules 在 husky 时忽略，然后在 CI 时校验所有 rules，并及时通知校验结果。为了保证最终合代码时的质量，开启 MR 校验拦截。<br>大致思路如下：<br><img data-src="/images/monorepo-commit-speed-up/monorepo-commit-speed.excalidraw.png" alt="图片"></p>
+<h3 id="1-配置-lint-staged-时关闭-type-aware-rules"><a href="#1-配置-lint-staged-时关闭-type-aware-rules" class="headerlink" title="1. 配置 lint-staged 时关闭 type-aware rules"></a>1. 配置 lint-staged 时关闭 type-aware rules</h3><p>package.json: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;lint-staged&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*.&#123;ts,tsx&#125;&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;node --max_old_space_size=16384 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet --no-eslintrc --config .husky.eslintrc.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="string">&quot;git add&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/images/monorepo-commit-speed-up/eslintrc-config.png" alt="图片"><br><a target="_blank" rel="noopener" href="https://eslint.org/docs/latest/user-guide/command-line-interface#-c---config">https://eslint.org/docs/latest/user-guide/command-line-interface#-c---config</a><br>通过配置lint-staged命令，给 eslint 指定单独的配置文件，即.husky.eslintrc.js :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">root</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">extends</span>: [<span class="string">&quot;@byted-clm&quot;</span>],</span><br><span class="line">  <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">    <span class="attr">tsconfigRootDir</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">project</span>: <span class="literal">null</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">rules</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/await-thenable&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-floating-promises&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-for-in-array&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-implied-eval&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-misused-promises&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unnecessary-type-assertion&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unsafe-argument&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unsafe-assignment&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unsafe-call&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unsafe-member-access&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/no-unsafe-return&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/require-await&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/restrict-plus-operands&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/restrict-template-expressions&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@typescript-eslint/unbound-method&#x27;</span>: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">ignorePatterns</span>: [<span class="string">&#x27;xxx&#x27;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关闭 type-aware 校验需要同时满足两个条件：</p>
+<ol>
+<li>parserOptions.project: null，tsconfigRootDir: null</li>
+<li>关闭<a target="_blank" rel="noopener" href="https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-requiring-type-checking.ts">相关 rules</a></li>
+</ol>
+<h3 id="2-配置-CI"><a href="#2-配置-CI" class="headerlink" title="2. 配置 CI"></a>2. 配置 CI</h3><p>在实际运行中，遇到了几个问题：</p>
+<ul>
+<li>lint 执行时，node 默认分配内存不够，在 pipeline 运行时会报错</li>
+<li>eslint 执行耗时 15min+，意味着 MR 时可能会卡很久……<br>下面分别说一下我的解决思路，也欢迎大家一起探讨。</li>
+</ul>
+<h4 id="a-Lint-内存不够"><a href="#a-Lint-内存不够" class="headerlink" title="a. Lint 内存不够"></a>a. Lint 内存不够</h4><p>这个问题比较容易解决，重新分配更大内存即可。<br>package.json 中 新增 ci:lint 执行脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;ci:lint&quot;</span>: <span class="string">&quot;node --max_old_space_size=16384 ./node_modules/eslint/bin/eslint.js  --ext .ts,.tsx --fix --color --cache --quiet ./&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="b-Pipeline-耗时长"><a href="#b-Pipeline-耗时长" class="headerlink" title="b. Pipeline 耗时长"></a>b. Pipeline 耗时长</h4><p>Pipeline 耗时长有两处可优化点：</p>
+<ol>
+<li>pnpm i 安装依赖耗时；</li>
+<li>eslint 执行时间较长；</li>
+</ol>
+<p>上面两个优化点均可通过缓存来解决，分别缓存 node_modules 和 .eslintcache</p>
+<p>在第一次运行 pipeline 时，发现 eslint 执行耗时非常久，整体 pipeline 执行完成需要 15min ~ 20min。</p>
+<p>可以想到，在 MR 的节点，因为 lint 需要卡这么长时间，也是很痛苦的。<br>那为什么在 pipeline 中执行 eslint 需要这么久呢？而本地执行 lint 的时候并不需要这么长时间的。<br>其中的奥妙依然是缓存！在本地工程运行时，可以看到根目录下生成了一个 .eslintcache 文件，而这个文件是我们在执行 lint 的时候加上 –cache 的效果：</p>
+<p>在 pipeline 执行时，工程是从 git clone 的，而 .eslintcache 文件是 gitignore 的。<br>那为了给 eslint 加速，我们需要在 ci 里缓存 .eslintcache 文件。<br>这里大家可以再思考下，既然 .eslintcache 缓存可以加快速度，那 ts 的编译是否可以利用缓存加速 type 信息的生成呢？</p>
+<blockquote>
+<p>eslint cache 还有一个细节点：在 pipeline 中执行 eslint 时，还需要设置 –cache-strategy content<br><img data-src="/images/monorepo-commit-speed-up/eslint-cache-strategy.png" alt="图片"></p>
+</blockquote>
+<p>设置缓存策略后 pipeline 执行时间锐减：5-6min</p>
+<table>
+<thead>
+<tr>
+<th>优化前</th>
+<th>优化后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>- git commit:  1min+；</td>
+<td>- local git commit:  10s 左右；</td>
+</tr>
+<tr>
+<td>- git merge release 分支： 5min+；</td>
+<td>- ci lint命中缓存时：4min-6min左右；</td>
+</tr>
+<tr>
+<td>-</td>
+<td>- ci lint 未命中缓存时：15-20min；</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/eslint/" rel="tag"># eslint</a>
+              <a href="/tags/monorepo/" rel="tag"># monorepo</a>
+              <a href="/tags/husky/" rel="tag"># husky</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/06/monorepo-tslint-slow-fix/" rel="prev" title="解决 monorepo 工程 husky 提交慢的问题">
+                  <i class="fa fa-chevron-left"></i> 解决 monorepo 工程 husky 提交慢的问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2021022449号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小木工</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/next-boot.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/"}</script>
+  <script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"http-soonwang-cn","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
