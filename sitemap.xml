@@ -11,24 +11,6 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2018/10/27/eggjs-from-enter-to-ready/</loc>
-    
-    <lastmod>2022-09-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/</loc>
-    
-    <lastmod>2022-09-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/2017/02/15/iteration-js/</loc>
     
     <lastmod>2022-09-04</lastmod>
@@ -56,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/</loc>
+    <loc>http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/</loc>
     
     <lastmod>2022-09-04</lastmod>
     
@@ -65,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/</loc>
+    <loc>http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/</loc>
     
     <lastmod>2022-09-04</lastmod>
     
@@ -92,7 +74,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2017/02/21/sandbox-pattern/</loc>
+    <loc>http://soonwang.cn/2019/03/13/varnish-learn/</loc>
     
     <lastmod>2022-09-04</lastmod>
     
@@ -101,7 +83,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2019/03/13/varnish-learn/</loc>
+    <loc>http://soonwang.cn/2017/02/21/sandbox-pattern/</loc>
     
     <lastmod>2022-09-04</lastmod>
     
@@ -129,6 +111,24 @@
   
   <url>
     <loc>http://soonwang.cn/2019/08/30/css-containing-block/</loc>
+    
+    <lastmod>2022-09-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/2018/10/27/eggjs-from-enter-to-ready/</loc>
+    
+    <lastmod>2022-09-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/</loc>
     
     <lastmod>2022-09-04</lastmod>
     
