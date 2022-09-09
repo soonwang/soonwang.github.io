@@ -56,6 +56,44 @@
       </tags>
   </entry>
   <entry>
+    <title>搞清楚 eslint 的 plugins 和 extends</title>
+    <url>/2022/02/20/eslint-config-extends-vs-plugins/</url>
+    <content><![CDATA[<p>最近在鼓捣 eslint 规则配置的时候，有两个配置一直傻傻分不清，这两个配置就是 <code>extends</code> 和 <code>plugins</code>。相信大家在实践过程中也会遇到这样的困扰，今天就来一起看一看，彻底搞清楚。</p>
+<p>首先，我们知道 eslint 是一个代码检查工具，它会根据我们在工程里配置的规则，来进行校验。我们常常在以下场景中使用到 eslint。</p>
+<ul>
+<li>vscode、webstorm 等编辑器、IDE安装插件</li>
+<li>工程运行时，通过 eslint-loader 检查及时发现问题</li>
+<li>commit 时进行代码检查校验拦截（通常会配合 husky + lint-staged 使用）</li>
+</ul>
+<p>所以一个团队如果想要保持统一的代码风格、良好的编码习惯，那约定和制定自己的 lint 规则就显得很重要。</p>
+<h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>在简单的场景中，我们可以不需要了解 plugins 和 extends 的概念，比如只是约定「封号」、「引号」的使用：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;always&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;quotes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;double&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>通过这样的配置，就约定了工程里统一强制使用封号结尾和双引号。</p>
+<p>然而渐渐的，eslint 默认的一些规则不再满足我们的需要，这时我们就需要引入更多的规则集，这就是 plugins 的概念。</p>
+<span id="more"></span>
+
+<h3 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h3><p>plugins 可以理解为一个规则集，这些规则能够满足我们的一些特殊场景。比如在 react 工程里，我们需要对 react 代码进行某些特殊的校验，而 eslint 默认的规则已经满足不了我们的需求，这个时候就需要引入能够校验 react 代码的规则，比如 <code>eslint-config-react</code>。<br>引入一个 plugin，通常是两步：</p>
+<ol>
+<li>安装 plugin，例如 <code>npm i eslint-config-react -D</code></li>
+<li>声明 plugin，在工程的配置文件中，比如<code>.eslintrc.json</code>中添加声明配置<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+plugin 声明即 规则集已经准备好，下一步就是我们要决定在工程里启用哪些规则了，启用规则的方法就是上面所介绍的 rules，需要在 rules 里声明。</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;react/display-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在定制规则的时候，我们会发现 plugin 里提供了大量的 rules，如果诶个过一遍，决定在工程里应用哪些规则的话，显然会消耗我们大量的精力，而且每个人、每个团队都需要经历一遍，这显然是不合理的。这个时候就轮到我们今天的另一个主角出场了。</p>
+<h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><p>eslint 的 plugin 除了提供规则校验规则外，通常也会提供一些推荐的规则集，比如 <code>eslint-config-react:recommend</code>、<code>eslint-config-react:all</code>。这里的 recommend、all 就是 <code>eslint-config-react</code> 内置的一些规则集合，方便工程里直接使用，方法如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react:recommend&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这样我们就很便利的应用了<code>eslint-config-react</code>插件推荐使用的规则。<br>为了看清 <code>eslint-config-react:recommend</code>具体应用了哪些规则，我们可以直接去看源码：<a href="https://github.com/yannickcr/eslint-plugin-react/blob/master/index.js">https://github.com/yannickcr/eslint-plugin-react/blob/master/index.js</a><br>进入上面链接后，可以看到 <code>recommend</code> 下应用的全部规则如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="string">&#x27;react&#x27;</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">        <span class="attr">ecmaFeatures</span>: &#123;</span><br><span class="line">            <span class="attr">jsx</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rules</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;react/display-name&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-key&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-comment-textnodes&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-duplicate-props&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-target-blank&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-undef&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-uses-react&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-uses-vars&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-children-prop&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-danger-with-children&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-deprecated&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-direct-mutation-state&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-find-dom-node&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-is-mounted&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-render-return-value&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-string-refs&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unescaped-entities&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unknown-property&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unsafe&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;react/prop-types&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/react-in-jsx-scope&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/require-render-return&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，可以看出这个内容就是一份完整的 eslint 的配置文件。</p>
+<p>总结一下，<code>plugins</code> 配置本质上是为了引入更多的校验规则方法，而仅仅引用规则是不会有任何效果的，还需要通过 <code>rules</code> 配置告诉 eslint 需要启用哪些规则。为了更方便的配置<code>plugins</code>和<code>rules</code>，可以配置<code>extends</code>使用 plugin 推荐开启的配置清单。</p>
+<p>好了，这次介绍就到这里，如有错误的地方，希望不吝赐教。</p>
+]]></content>
+      <tags>
+        <tag>eslint</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>eggjs启动从回车到ready</title>
     <url>/2018/10/27/eggjs-from-enter-to-ready/</url>
     <content><![CDATA[<p>JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出线程就会挂掉，业务也就不可访问了，所以一般我们在使用koa，express，thinkjs等其他node框架时一般会使用pm2去管理node进程，保证业务的高可用性。而阿里开源的egg框架本身自带的egg-cluster模板已经帮我们做了这个事情，egg的多进程模型和进程间通信官方文档上写的已经很清楚了，今天学习一下源码，希望有所收获。</p>
@@ -158,44 +196,6 @@
       <tags>
         <tag>eggjs</tag>
         <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搞清楚 eslint 的 plugins 和 extends</title>
-    <url>/2022/02/20/eslint-config-extends-vs-plugins/</url>
-    <content><![CDATA[<p>最近在鼓捣 eslint 规则配置的时候，有两个配置一直傻傻分不清，这两个配置就是 <code>extends</code> 和 <code>plugins</code>。相信大家在实践过程中也会遇到这样的困扰，今天就来一起看一看，彻底搞清楚。</p>
-<p>首先，我们知道 eslint 是一个代码检查工具，它会根据我们在工程里配置的规则，来进行校验。我们常常在以下场景中使用到 eslint。</p>
-<ul>
-<li>vscode、webstorm 等编辑器、IDE安装插件</li>
-<li>工程运行时，通过 eslint-loader 检查及时发现问题</li>
-<li>commit 时进行代码检查校验拦截（通常会配合 husky + lint-staged 使用）</li>
-</ul>
-<p>所以一个团队如果想要保持统一的代码风格、良好的编码习惯，那约定和制定自己的 lint 规则就显得很重要。</p>
-<h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>在简单的场景中，我们可以不需要了解 plugins 和 extends 的概念，比如只是约定「封号」、「引号」的使用：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;always&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;quotes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;double&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>通过这样的配置，就约定了工程里统一强制使用封号结尾和双引号。</p>
-<p>然而渐渐的，eslint 默认的一些规则不再满足我们的需要，这时我们就需要引入更多的规则集，这就是 plugins 的概念。</p>
-<span id="more"></span>
-
-<h3 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h3><p>plugins 可以理解为一个规则集，这些规则能够满足我们的一些特殊场景。比如在 react 工程里，我们需要对 react 代码进行某些特殊的校验，而 eslint 默认的规则已经满足不了我们的需求，这个时候就需要引入能够校验 react 代码的规则，比如 <code>eslint-config-react</code>。<br>引入一个 plugin，通常是两步：</p>
-<ol>
-<li>安装 plugin，例如 <code>npm i eslint-config-react -D</code></li>
-<li>声明 plugin，在工程的配置文件中，比如<code>.eslintrc.json</code>中添加声明配置<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-plugin 声明即 规则集已经准备好，下一步就是我们要决定在工程里启用哪些规则了，启用规则的方法就是上面所介绍的 rules，需要在 rules 里声明。</li>
-</ol>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;react/display-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>在定制规则的时候，我们会发现 plugin 里提供了大量的 rules，如果诶个过一遍，决定在工程里应用哪些规则的话，显然会消耗我们大量的精力，而且每个人、每个团队都需要经历一遍，这显然是不合理的。这个时候就轮到我们今天的另一个主角出场了。</p>
-<h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><p>eslint 的 plugin 除了提供规则校验规则外，通常也会提供一些推荐的规则集，比如 <code>eslint-config-react:recommend</code>、<code>eslint-config-react:all</code>。这里的 recommend、all 就是 <code>eslint-config-react</code> 内置的一些规则集合，方便工程里直接使用，方法如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;eslint-config-react:recommend&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>这样我们就很便利的应用了<code>eslint-config-react</code>插件推荐使用的规则。<br>为了看清 <code>eslint-config-react:recommend</code>具体应用了哪些规则，我们可以直接去看源码：<a href="https://github.com/yannickcr/eslint-plugin-react/blob/master/index.js">https://github.com/yannickcr/eslint-plugin-react/blob/master/index.js</a><br>进入上面链接后，可以看到 <code>recommend</code> 下应用的全部规则如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="string">&#x27;react&#x27;</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">        <span class="attr">ecmaFeatures</span>: &#123;</span><br><span class="line">            <span class="attr">jsx</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rules</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;react/display-name&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-key&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-comment-textnodes&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-duplicate-props&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-target-blank&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-no-undef&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-uses-react&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/jsx-uses-vars&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-children-prop&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-danger-with-children&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-deprecated&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-direct-mutation-state&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-find-dom-node&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-is-mounted&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-render-return-value&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-string-refs&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unescaped-entities&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unknown-property&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/no-unsafe&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;react/prop-types&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/react-in-jsx-scope&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">&#x27;react/require-render-return&#x27;</span>: <span class="number">2</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时，可以看出这个内容就是一份完整的 eslint 的配置文件。</p>
-<p>总结一下，<code>plugins</code> 配置本质上是为了引入更多的校验规则方法，而仅仅引用规则是不会有任何效果的，还需要通过 <code>rules</code> 配置告诉 eslint 需要启用哪些规则。为了更方便的配置<code>plugins</code>和<code>rules</code>，可以配置<code>extends</code>使用 plugin 推荐开启的配置清单。</p>
-<p>好了，这次介绍就到这里，如有错误的地方，希望不吝赐教。</p>
-]]></content>
-      <tags>
-        <tag>eslint</tag>
       </tags>
   </entry>
   <entry>
@@ -631,6 +631,12 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       </tags>
   </entry>
   <entry>
+    <title>测试部署</title>
+    <url>/2022/09/09/yuque/%E6%B5%8B%E8%AF%95%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p>232333</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Yarn resolutions</title>
     <url>/2021/08/01/yarn-resolutions/</url>
     <content><![CDATA[<p>Yarn 支持在工程的 package.json 文件中的 <code>resolutions</code> 字段里指定包的特定版本或者版本范围。</p>
@@ -654,12 +660,6 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       <tags>
         <tag>yarn</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>测试部署</title>
-    <url>/2022/09/09/yuque/%E6%B5%8B%E8%AF%95%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<p>232333</p>
-]]></content>
   </entry>
   <entry>
     <title>Vue.$nextTick浅谈</title>
