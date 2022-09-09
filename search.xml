@@ -661,7 +661,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
     <content><![CDATA[<h2 id="一、HelloWorld"><a href="#一、HelloWorld" class="headerlink" title="一、HelloWorld"></a>一、HelloWorld</h2><p>演示</p>
 <h2 id="二、开发环境"><a href="#二、开发环境" class="headerlink" title="二、开发环境"></a>二、开发环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line"><span class="built_in">export</span> FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
 
-<!--- more --->
+<span id="more"></span>
 
 <h2 id="三、基础组件"><a href="#三、基础组件" class="headerlink" title="三、基础组件"></a>三、基础组件</h2><h4 id="1-Widget"><a href="#1-Widget" class="headerlink" title="1. Widget"></a>1. Widget</h4><p><img data-src="https://intranetproxy.alipay.com/skylark/lark/0/2020/svg/244212/1585218751366-48cca93c-5958-4c28-aeac-79f9ccd6640e.svg"><br>State 生命周期如下：<br><img data-src="https://cdn.nlark.com/yuque/0/2020/png/246478/1585315909919-667063b1-e430-4c48-99d0-d0c094d2eb57.png#crop=0&crop=0&crop=1&crop=1&height=845&id=ZNdT0&name=image.png&originHeight=869&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=39605&status=done&style=none&title=&width=682" alt="image.png"></p>
 <h4 id="2-Text、TextSpan、WidgetSpan"><a href="#2-Text、TextSpan、WidgetSpan" class="headerlink" title="2. Text、TextSpan、WidgetSpan"></a>2. Text、TextSpan、WidgetSpan</h4><ul>
