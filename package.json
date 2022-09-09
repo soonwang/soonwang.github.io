@@ -19,7 +19,7 @@
   "yuqueConfig": {
     "postPath": "source/_posts/yuque",
     "baseUrl": "https://www.yuque.com/api/v2",
-    "login": "https://www.yuque.com/soonwang",
+    "login": "soonwang",
     "repo": "blog",
     "onlyPublished": true,
     "onlyPublic": true
