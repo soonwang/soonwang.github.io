@@ -11,8 +11,7 @@
     "post": "hexo publish drfat",
     "yuque:clean": "yuque-hexo clean",
     "yuque:sync": "yuque-hexo sync",
-    "cp": "cp -r .github/ ./public/.github/",
-    "build": "npm run yuque:sync && npm run hexo:build && npm run cp"
+    "build": "npm run yuque:sync && npm run hexo:build"
   },
   "hexo": {
     "version": "5.4.0"
