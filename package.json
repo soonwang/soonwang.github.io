@@ -10,8 +10,8 @@
     "server": "hexo server --draft",
     "post": "hexo publish drfat",
     "yuque:clean": "yuque-hexo clean",
-    "build:yuque": "yuque-hexo sync",
-    "build": "npm run hexo:build && npm run build:yuque"
+    "yuque:sync": "yuque-hexo sync",
+    "build": "npm run yuque:sync && npm run hexo:build"
   },
   "hexo": {
     "version": "5.4.0"
