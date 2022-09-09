@@ -5,6 +5,11 @@ on:
     branches:
       - source  # default branch
 
+  # 允许外部仓库事件触发
+  repository_dispatch:
+    types:
+      - start
+
 jobs:
   pages:
     runs-on: ubuntu-latest
