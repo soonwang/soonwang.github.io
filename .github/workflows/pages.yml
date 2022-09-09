@@ -1,9 +1,9 @@
 name: Pages
 
 on:
-  push:
-    branches:
-      - source  # default branch
+  # push:
+  #   branches:
+  #     - source  # default branch
 
   # 允许外部仓库事件触发
   repository_dispatch:
