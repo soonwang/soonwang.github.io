@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/</loc>
+    <loc>http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/</loc>
+    <loc>http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -128,15 +128,6 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
-    
-    <lastmod>2022-09-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/2019/03/13/varnish-learn/</loc>
     
     <lastmod>2022-09-09</lastmod>
@@ -146,25 +137,16 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
+    
+    <lastmod>2022-09-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/2018/08/05/Vue.$nextTick/</loc>
-    
-    <lastmod>2022-09-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/.github/dependabot.json</loc>
-    
-    <lastmod>2022-09-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/.github/workflows/pages.json</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -252,13 +234,6 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/tags/yarn/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/tags/varnish/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -267,6 +242,13 @@
   
   <url>
     <loc>http://soonwang.cn/tags/%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/tags/yarn/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
