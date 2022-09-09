@@ -1,0 +1,43 @@
+name: Pages
+
+on:
+  push:
+    branches:
+      - source  # default branch
+
+  # 允许外部仓库事件触发
+  repository_dispatch:
+    types:
+      - start
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v3
+        with:
+          ref: source
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        env: 
+            YUQUE_TOKEN: ${{ secrets.YUQUE_TOKEN }}
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: master  # deploying branch
