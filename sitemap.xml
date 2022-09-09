@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://soonwang.cn/2022/09/09/yuque/%E6%B5%8B%E8%AF%95%E9%83%A8%E7%BD%B2/</loc>
+    <loc>http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -248,21 +248,14 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/tags/hexo/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/tags/yuque/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/tags/yarn/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/tags/flutter/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -276,12 +269,5 @@
   </url>
   
 
-  
-  <url>
-    <loc>http://soonwang.cn/categories/blog/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
 </urlset>

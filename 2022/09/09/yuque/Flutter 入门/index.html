@@ -20,23 +20,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"soonwang.cn","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="有个小站">
-<meta property="og:url" content="http://soonwang.cn/index.html">
+    <meta name="description" content="一、HelloWorld演示 二、开发环境12export PUB_HOSTED_URL&#x3D;https:&#x2F;&#x2F;pub.flutter-io.cnexport FLUTTER_STORAGE_BASE_URL&#x3D;https:&#x2F;&#x2F;storage.flutter-io.cn  三、基础组件1. WidgetState 生命周期如下： 2. Text、TextSpan、WidgetSpan Text 显示文字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 入门">
+<meta property="og:url" content="http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="有个小站">
+<meta property="og:description" content="一、HelloWorld演示 二、开发环境12export PUB_HOSTED_URL&#x3D;https:&#x2F;&#x2F;pub.flutter-io.cnexport FLUTTER_STORAGE_BASE_URL&#x3D;https:&#x2F;&#x2F;storage.flutter-io.cn  三、基础组件1. WidgetState 生命周期如下： 2. Text、TextSpan、WidgetSpan Text 显示文字">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2020/svg/244212/1585218751366-48cca93c-5958-4c28-aeac-79f9ccd6640e.svg">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/246478/1585315909919-667063b1-e430-4c48-99d0-d0c094d2eb57.png#crop=0&crop=0&crop=1&crop=1&height=845&id=ZNdT0&name=image.png&originHeight=869&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=39605&status=done&style=none&title=&width=682">
+<meta property="article:published_time" content="2022-09-09T17:38:42.000Z">
+<meta property="article:modified_time" content="2022-09-09T19:38:27.925Z">
 <meta property="article:author" content="小木工">
+<meta property="article:tag" content="flutter">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2020/svg/244212/1585218751366-48cca93c-5958-4c28-aeac-79f9ccd6640e.svg">
 
 
-<link rel="canonical" href="http://soonwang.cn/">
+<link rel="canonical" href="http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/","path":"2022/09/09/yuque/Flutter 入门/","title":"Flutter 入门"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>有个小站 - Stay Hungry, Stay Foolish</title>
+<title>Flutter 入门 | 有个小站</title>
   
 
   <script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/analytics/baidu-analytics.js"></script>
@@ -70,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">有个小站</h1>
+      <p class="site-title">有个小站</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Stay Hungry, Stay Foolish</p>
@@ -130,7 +138,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,6 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81HelloWorld"><span class="nav-number">1.</span> <span class="nav-text">一、HelloWorld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">二、开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">三、基础组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Widget"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. Widget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Text%E3%80%81TextSpan%E3%80%81WidgetSpan"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. Text、TextSpan、WidgetSpan</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Button%E3%80%81Image"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. Button、Image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A1%A8%E5%8D%95%E3%80%81%E8%BE%93%E5%85%A5%E6%A1%86%E3%80%81%E5%8D%95%E9%80%89%E3%80%81%E5%A4%8D%E9%80%89"><span class="nav-number">3.0.4.</span> <span class="nav-text">3. 表单、输入框、单选、复选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%B8%83%E5%B1%80%E7%BB%84%E4%BB%B6"><span class="nav-number">3.0.5.</span> <span class="nav-text">4. 布局组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%B9%E5%99%A8%E7%B1%BB%E7%BB%84%E4%BB%B6"><span class="nav-number">3.0.6.</span> <span class="nav-text">5. 容器类组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%8F%AF%E6%BB%9A%E5%8A%A8%E7%BB%84%E4%BB%B6"><span class="nav-number">3.0.7.</span> <span class="nav-text">6. 可滚动组件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">四、路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-MaterialPageRoute"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. MaterialPageRoute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Navigator"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. Navigator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. 命名路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1-Hook"><span class="nav-number">4.0.4.</span> <span class="nav-text">4. 命名路由 Hook</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="nav-number">5.</span> <span class="nav-text">五、网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Dio-%E5%BA%93"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. Dio 库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A4%84%E7%90%86-cookie"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 处理 cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-json-%E8%BD%AC-model"><span class="nav-number">5.0.3.</span> <span class="nav-text">3. json 转 model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">6.</span> <span class="nav-text">六、持久化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SharedPreferences"><span class="nav-number">6.0.1.</span> <span class="nav-text">1. SharedPreferences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">6.0.2.</span> <span class="nav-text">2. 文件操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%8A%A8%E7%94%BB"><span class="nav-number">7.</span> <span class="nav-text">七、动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -199,16 +208,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,13 +232,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
+      <meta itemprop="name" content="Flutter 入门 | 有个小站">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Flutter 入门</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Flutter 入门
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -242,6 +252,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
   
   <span class="post-meta-item">
     
@@ -265,7 +282,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一、HelloWorld"><a href="#一、HelloWorld" class="headerlink" title="一、HelloWorld"></a>一、HelloWorld</h2><p>演示</p>
+        <h2 id="一、HelloWorld"><a href="#一、HelloWorld" class="headerlink" title="一、HelloWorld"></a>一、HelloWorld</h2><p>演示</p>
 <h2 id="二、开发环境"><a href="#二、开发环境" class="headerlink" title="二、开发环境"></a>二、开发环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line"><span class="built_in">export</span> FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
 
 <h2 id="三、基础组件"><a href="#三、基础组件" class="headerlink" title="三、基础组件"></a>三、基础组件</h2><h4 id="1-Widget"><a href="#1-Widget" class="headerlink" title="1. Widget"></a>1. Widget</h4><p><img data-src="https://intranetproxy.alipay.com/skylark/lark/0/2020/svg/244212/1585218751366-48cca93c-5958-4c28-aeac-79f9ccd6640e.svg"><br>State 生命周期如下：<br><img data-src="https://cdn.nlark.com/yuque/0/2020/png/246478/1585315909919-667063b1-e430-4c48-99d0-d0c094d2eb57.png#crop=0&crop=0&crop=1&crop=1&height=845&id=ZNdT0&name=image.png&originHeight=869&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=39605&status=done&style=none&title=&width=682" alt="image.png"></p>
@@ -361,7 +378,6 @@
 <li><a target="_blank" rel="noopener" href="https://pub.dev/">Flutter 仓库</a></li>
 </ul>
 
-      
     </div>
 
     
@@ -369,301 +385,21 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/09/04/monorepo-commit-speed-up/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/04/monorepo-commit-speed-up/" class="post-title-link" itemprop="url">monorepo commit 加速【第二弹】</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-09-04 15:36:39" itemprop="dateCreated datePublished" datetime="2022-09-04T15:36:39+00:00">2022-09-04</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/09/04/monorepo-commit-speed-up/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/09/04/monorepo-commit-speed-up/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>随着业务的发展，monorepo 工程越来越大~</p>
-<ul>
-<li>在 <code>git commit</code> 时耗时会比较久，耗时是大概 1min+；</li>
-<li>在 <code>git merge release</code> 分支时耗时会更久，常常是 5min+;<br>所以在实际开发过程中，会发现有部分同学偶尔会跳过 git hook，跳过 lint 校验拦截，提交有类型报错的代码。</li>
-</ul>
-<h2 id="为什么会这么慢？"><a href="#为什么会这么慢？" class="headerlink" title="为什么会这么慢？"></a>为什么会这么慢？</h2><p>根据以往的工作经验，在没有用 ts 的工程里 lint 执行都是比较快的，所以这里猜想是 ts 的某些 rule 影响了整体的执行速度，终于在 typescript-eslint 找到了原因：<a target="_blank" rel="noopener" href="https://typescript-eslint.io/docs/linting/troubleshooting/#my-linting-feels-really-slow">Troubleshooting &amp; FAQs | TypeScript ESLint</a><br><img data-src="/images/monorepo-commit-speed-up/feeling-slow.png" alt="图片"><br><img data-src="/images/monorepo-commit-speed-up/how-is-perform.png" alt="图片"><br>如果我们在工程里开启了type-aware lint，那么执行 lint 的时间将会和构建时间一样长。<br>typescript-eslint  的一些 rules 是依赖 type information，所以在执行 lint 前会先编译一遍ts<br><a target="_blank" rel="noopener" href="https://typescript-eslint.io/docs/linting/typed-linting/">Linting with Type Information | TypeScript ESLint</a> 官网这里具体描述了type-aware 是如何开启的：<br><img data-src="/images/monorepo-commit-speed-up/lint-with-type.png" alt="图片"></p>
-<ol>
-<li>配置 <code>parserOptions</code>（tsconfigRoot、project）</li>
-<li>配置 <code>type-aware</code> 相关 rules</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/04/monorepo-commit-speed-up/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/03/06/monorepo-tslint-slow-fix/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/06/monorepo-tslint-slow-fix/" class="post-title-link" itemprop="url">解决 monorepo 工程 husky 提交慢的问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-03-06 23:16:04" itemprop="dateCreated datePublished" datetime="2022-03-06T23:16:04+00:00">2022-03-06</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/03/06/monorepo-tslint-slow-fix/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/03/06/monorepo-tslint-slow-fix/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>业务发展了一年多，随着工程越来越大，发现在提交代码的时候，耗时会很久。最近在业务需求不是很紧的时候，就抽空研究了一下。</p>
-<p>在提交代码的时候，触发了 husky 配置的 <code>pre-commit</code>的 git hooks。相信大家对于这个 git hook 不会很陌生，我们大部分需要团队合作的项目，为了约束大家的代码规范，通常会选择使用 husky 并且在提交前进行代码校验拦截，这个时机就刚好是 <code>pre-commit</code> git hooks 的时机。</p>
-<p>所以问题一下就变得清晰起来，是 pre-commit 的 hook 执行的 lint 检查耗时过长。首先先介绍下我们工程的技术选型：yarn + learn + ts + react ，在正式排查前，猜测主要导致 lint 执行慢的因素大概有两个 monorepo（工程多、代码量大）、ts（ts 类型检查耗时）。</p>
-<p>在开始排查问题之前，先做了个小测试：只改动了一个 tsx 文件，并尝试提交，计时发现，从开始 commit 到 commit 完成，发现竟然耗时了 1min+，晕~。这里就猜想会不会是某个 lint 规则 或 某个 lint 插件导致运行很慢的？接下来就沿着这个思路进行排查。 </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/06/monorepo-tslint-slow-fix/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/04/monorepo-commit-speed-up/" rel="prev" title="monorepo commit 加速【第二弹】">
+                  <i class="fa fa-chevron-left"></i> monorepo commit 加速【第二弹】
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/20/eslint-config-extends-vs-plugins/" class="post-title-link" itemprop="url">搞清楚 eslint 的 plugins 和 extends</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-20 22:32:07" itemprop="dateCreated datePublished" datetime="2022-02-20T22:32:07+00:00">2022-02-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/02/20/eslint-config-extends-vs-plugins/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/20/eslint-config-extends-vs-plugins/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近在鼓捣 eslint 规则配置的时候，有两个配置一直傻傻分不清，这两个配置就是 <code>extends</code> 和 <code>plugins</code>。相信大家在实践过程中也会遇到这样的困扰，今天就来一起看一看，彻底搞清楚。</p>
-<p>首先，我们知道 eslint 是一个代码检查工具，它会根据我们在工程里配置的规则，来进行校验。我们常常在以下场景中使用到 eslint。</p>
-<ul>
-<li>vscode、webstorm 等编辑器、IDE安装插件</li>
-<li>工程运行时，通过 eslint-loader 检查及时发现问题</li>
-<li>commit 时进行代码检查校验拦截（通常会配合 husky + lint-staged 使用）</li>
-</ul>
-<p>所以一个团队如果想要保持统一的代码风格、良好的编码习惯，那约定和制定自己的 lint 规则就显得很重要。</p>
-<h3 id="rules"><a href="#rules" class="headerlink" title="rules"></a>rules</h3><p>在简单的场景中，我们可以不需要了解 plugins 和 extends 的概念，比如只是约定「封号」、「引号」的使用：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;always&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;quotes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;error&quot;</span><span class="punctuation">,</span> <span class="string">&quot;double&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>通过这样的配置，就约定了工程里统一强制使用封号结尾和双引号。</p>
-<p>然而渐渐的，eslint 默认的一些规则不再满足我们的需要，这时我们就需要引入更多的规则集，这就是 plugins 的概念。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/20/eslint-config-extends-vs-plugins/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
@@ -671,570 +407,13 @@
 
 
 
+
+
     
-
-
-<div class="post-block">
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
   
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2022/02/13/react-styled-components-and-loadable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/13/react-styled-components-and-loadable/" class="post-title-link" itemprop="url">styled-components 使用 loadable 懒加载时样式优先级问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-13 23:27:41" itemprop="dateCreated datePublished" datetime="2022-02-13T23:27:41+00:00">2022-02-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/02/13/react-styled-components-and-loadable/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/02/13/react-styled-components-and-loadable/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近在 React 项目中引入 <code>@loadable/component</code> 进行懒加载优化时，发现了一个样式优先级问题。<br>我们工程里使用的是公司内部组件库，在想要覆盖组件库组件的样式时，基于 <code>styled-components</code> 的写法如下：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&#x27;styled-components&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Button</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆盖 Button 组件样式</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">CustomButton</span> = <span class="title function_">styled</span>(<span class="title class_">Button</span>)<span class="string">`</span></span><br><span class="line"><span class="string">    width: 80px;</span></span><br><span class="line"><span class="string">    height: 32px;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
-<p>正常情况下，上述代码应该会生效，即最终展现在页面上的按钮样式宽度应该是 80 px，高度为 32 px，覆盖原 Button 组件的宽高样式。</p>
-<p>但是在实际使用过程中，我们发现了一些异常：覆盖的样式会偶现失效的情况。有些时候自定义宽高会生效，有些时候自定义宽高不会生效。经过排查，发现如果是在<code>CustomButton</code>所在页面刷新，则按钮展示的宽高是符合预期的，如果是从其他页面进入的，则自定义宽高不会生效。没有生效的原因也很简单，<code>CustomButton</code> 的样式优先级排在了 <code>Button</code> 后面。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/13/react-styled-components-and-loadable/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2021/08/01/yarn-resolutions/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/01/yarn-resolutions/" class="post-title-link" itemprop="url">Yarn resolutions</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-08-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-01T00:00:00+00:00">2021-08-01</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2021/08/01/yarn-resolutions/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/01/yarn-resolutions/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Yarn 支持在工程的 package.json 文件中的 <code>resolutions</code> 字段里指定包的特定版本或者版本范围。</p>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>可能工程里的某个依赖的包A不是经常更新，但是这个包所依赖的包B有一个重要更新。这这种情况下，如果这个包A指定的依赖包B的版本范围没有覆盖到包B的最新版本的话，即重新安装依赖时，也不会安装到最新的包B，这时我们可能就要一直等待包A的作者更新了。</li>
-<li>当工程里的子依赖有一个重要的安全方面的更新，并且你不想等你直接依赖的包更新时</li>
-<li>当工程中某个依赖包正常运行，但是作者不再维护了。如果这个包某个依赖包有更新时，而且我们需要这个更新时。</li>
-<li>当工程中某个依赖包定义了一个很大范围的版本时，如果子依赖此时更新了一个最新版本存在bug，我们想退回之前的版本时，</li>
-</ul>
-<blockquote>
-<p>总的来说就是，我们希望指定工程直接依赖里的某个子依赖包的版本时，可以使用 <code>resolutions</code></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/01/yarn-resolutions/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2019/09/02/css-bfc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/09/02/css-bfc/" class="post-title-link" itemprop="url">BFC</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-09-02 09:59:00" itemprop="dateCreated datePublished" datetime="2019-09-02T09:59:00+00:00">2019-09-02</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/09/02/css-bfc/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/02/css-bfc/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="BFC-概念"><a href="#BFC-概念" class="headerlink" title="BFC 概念"></a>BFC 概念</h2><p>BFC 即 Block Formatting Contexts（块级格式化上下文），属于普通流定位。具有BFC特性的元素可以看做是隔离了的独立容器，容器里面的元素不会再布局上影响到外面的元素。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/09/02/css-bfc/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2019/08/30/css-containing-block/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/30/css-containing-block/" class="post-title-link" itemprop="url">CSS 包含块</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-08-30 10:17:00" itemprop="dateCreated datePublished" datetime="2019-08-30T10:17:00+00:00">2019-08-30</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/08/30/css-containing-block/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/30/css-containing-block/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="确定包含块"><a href="#确定包含块" class="headerlink" title="确定包含块"></a>确定包含块</h2><ol>
-<li>position 为 static 或 relative，包含块 就是它最近的祖先<strong>块</strong>元素（比如：inline-block, block 或 list-item）或格式化上下文（BFC）的内容区</li>
-<li>position 为 absolute，包含块就是它最近的position 不是 static的祖先元素的内容区 + padding区</li>
-<li>position fixed，包含块是viewport</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/08/30/css-containing-block/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2019/03/13/varnish-learn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/13/varnish-learn/" class="post-title-link" itemprop="url">Varnish 入门</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-13T00:00:00+00:00">2019-03-13</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/03/13/varnish-learn/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/13/varnish-learn/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Varnish是一款高性能、开源的反向代理服务器，支持负载均衡，经常被用作缓存服务，能够极大的提高网站的响应速度。</p>
-<p>Varnish 进程分为master进程和worker进程，master进程负责读取配置文件、创建和管理子进程等，worker进程则负责处理请求。一旦子进程挂了，master进程会立即重新启动子进程。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>mac 上安装可以使用Homebrew</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install varnish</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/03/13/varnish-learn/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://soonwang.cn/2018/10/27/eggjs-from-enter-to-ready/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.ico">
-      <meta itemprop="name" content="小木工">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="有个小站">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 有个小站">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/27/eggjs-from-enter-to-ready/" class="post-title-link" itemprop="url">eggjs启动从回车到ready</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-27 09:35:20" itemprop="dateCreated datePublished" datetime="2018-10-27T09:35:20+00:00">2018-10-27</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2018/10/27/eggjs-from-enter-to-ready/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/27/eggjs-from-enter-to-ready/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出线程就会挂掉，业务也就不可访问了，所以一般我们在使用koa，express，thinkjs等其他node框架时一般会使用pm2去管理node进程，保证业务的高可用性。而阿里开源的egg框架本身自带的egg-cluster模板已经帮我们做了这个事情，egg的多进程模型和进程间通信官方文档上写的已经很清楚了，今天学习一下源码，希望有所收获。</p>
-<h2 id="egg-bin-dev"><a href="#egg-bin-dev" class="headerlink" title="egg-bin dev"></a>egg-bin dev</h2><p>运行一个egg项目，<code>npm run dev</code>在package.json文件里我们发现默认其实执行的是<code>egg-bin dev</code>。egg-bin原来是egg提供的一个开发时使用的命令行工具，翻开egg-bin的代码，我们可以看到egg-bin其实是基于<a target="_blank" rel="noopener" href="http://npm.taobao.org/package/common-bin">common-bin</a>开发的，这里不赘述common-bin的用法，感兴趣的童鞋自行去查阅。在<code>lib/cmd/dev.js</code>里我们可以看到<code>egg-bin dev</code>执行的逻辑（去掉debug日志）：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/27/eggjs-from-enter-to-ready/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 </div>
   </main>
 
@@ -1295,7 +474,7 @@
 
 
   <script src="https://unpkg.com/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://soonwang.cn/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/"}</script>
   <script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"http-soonwang-cn","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="https://unpkg.com/hexo-theme-next@8.13.0/source/js/third-party/comments/disqus.js"></script>
