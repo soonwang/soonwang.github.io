@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2018/10/27/eggjs-from-enter-to-ready/</loc>
+    <loc>http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/</loc>
+    <loc>http://soonwang.cn/2018/10/27/eggjs-from-enter-to-ready/</loc>
     
     <lastmod>2022-09-09</lastmod>
     
@@ -171,6 +171,13 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/tags/eslint/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/tags/eggjs/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -179,13 +186,6 @@
   
   <url>
     <loc>http://soonwang.cn/tags/javascript/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/tags/eslint/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -248,13 +248,6 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/tags/yarn/</loc>
-    <lastmod>2022-09-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/tags/hexo/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -263,6 +256,13 @@
   
   <url>
     <loc>http://soonwang.cn/tags/yuque/</loc>
+    <lastmod>2022-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/tags/yarn/</loc>
     <lastmod>2022-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
