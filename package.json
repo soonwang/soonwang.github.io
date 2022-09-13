@@ -25,6 +25,8 @@
     "onlyPublic": true,
     "imgCdn": {
       "enabled": true,
+      "imageBed": "qiniu",
+      "host": "image.soonwang.cn",
       "bucket": "blog-oversea",
       "region": "as0",
       "prefixKey": "blog"
