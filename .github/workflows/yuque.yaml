@@ -1,0 +1,55 @@
+name: Sync yuque To Github
+
+on:
+  # 允许外部仓库事件触发
+  repository_dispatch:
+    types:
+      - start
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: 拉取语雀文章
+        env:
+          YUQUE_TOKEN: ${{ secrets.YUQUE_TOKEN }}
+          SECRET_ID: ${{ secrets.SECRET_ID }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          npm run yuque:clean
+          npm run yuque:sync
+
+      - name: 配置 Git 用户名邮箱
+        run: |
+          git config --global user.name "soonwang"
+          git config --global usr.email "wangsong3635@outlook.com"
+
+      - name: Git Commit
+        run: |
+          echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.txt
+          git add .
+          git commit -m "Refresh yuque json" -a
+
+      - name: 推送文章到仓库
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB.TOKEN }}

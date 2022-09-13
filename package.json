@@ -4,14 +4,13 @@
   "private": true,
   "scripts": {
     "hexo:build": "hexo generate",
-    "clean": "hexo clean",
+    "hexo:clean": "hexo clean",
     "deploy": "hexo deploy",
     "new": "hexo new draft",
     "server": "hexo server --draft",
     "post": "hexo publish drfat",
     "yuque:clean": "yuque-hexo clean",
-    "yuque:sync": "yuque-hexo sync",
-    "build": "npm run yuque:sync && npm run hexo:build"
+    "yuque:sync": "yuque-hexo sync"
   },
   "hexo": {
     "version": "5.4.0"
