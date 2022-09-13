@@ -119,6 +119,15 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
+    
+    <lastmod>2022-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/2019/03/13/varnish-learn/</loc>
     
     <lastmod>2022-09-13</lastmod>
@@ -128,7 +137,7 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
+    <loc>http://soonwang.cn/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2022-09-13</lastmod>
     
@@ -225,6 +234,13 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/tags/yarn/</loc>
+    <lastmod>2022-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/tags/varnish/</loc>
     <lastmod>2022-09-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -239,7 +255,14 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/tags/yarn/</loc>
+    <loc>http://soonwang.cn/tags/flutter/</loc>
+    <lastmod>2022-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/tags/flutter-%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2022-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
