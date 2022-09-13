@@ -20,24 +20,6 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2019/09/02/css-bfc/</loc>
-    
-    <lastmod>2022-09-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/2019/08/30/css-containing-block/</loc>
-    
-    <lastmod>2022-09-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://soonwang.cn/2022/02/20/eslint-config-extends-vs-plugins/</loc>
     
     <lastmod>2022-09-13</lastmod>
@@ -128,6 +110,15 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
+    
+    <lastmod>2022-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/2019/03/13/varnish-learn/</loc>
     
     <lastmod>2022-09-13</lastmod>
@@ -137,7 +128,16 @@
   </url>
   
   <url>
-    <loc>http://soonwang.cn/2021/08/01/yarn-resolutions/</loc>
+    <loc>http://soonwang.cn/2019/09/02/css-bfc/</loc>
+    
+    <lastmod>2022-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://soonwang.cn/2019/08/30/css-containing-block/</loc>
     
     <lastmod>2022-09-13</lastmod>
     
@@ -234,6 +234,13 @@
   </url>
   
   <url>
+    <loc>http://soonwang.cn/tags/yarn/</loc>
+    <lastmod>2022-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://soonwang.cn/tags/varnish/</loc>
     <lastmod>2022-09-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -242,13 +249,6 @@
   
   <url>
     <loc>http://soonwang.cn/tags/%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2022-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://soonwang.cn/tags/yarn/</loc>
     <lastmod>2022-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -452,6 +452,31 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       </tags>
   </entry>
   <entry>
+    <title>Yarn resolutions</title>
+    <url>/2021/08/01/yarn-resolutions/</url>
+    <content><![CDATA[<p>Yarn 支持在工程的 package.json 文件中的 <code>resolutions</code> 字段里指定包的特定版本或者版本范围。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>可能工程里的某个依赖的包A不是经常更新，但是这个包所依赖的包B有一个重要更新。这这种情况下，如果这个包A指定的依赖包B的版本范围没有覆盖到包B的最新版本的话，即重新安装依赖时，也不会安装到最新的包B，这时我们可能就要一直等待包A的作者更新了。</li>
+<li>当工程里的子依赖有一个重要的安全方面的更新，并且你不想等你直接依赖的包更新时</li>
+<li>当工程中某个依赖包正常运行，但是作者不再维护了。如果这个包某个依赖包有更新时，而且我们需要这个更新时。</li>
+<li>当工程中某个依赖包定义了一个很大范围的版本时，如果子依赖此时更新了一个最新版本存在bug，我们想退回之前的版本时，</li>
+</ul>
+<blockquote>
+<p>总的来说就是，我们希望指定工程直接依赖里的某个子依赖包的版本时，可以使用 <code>resolutions</code></p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>在 <code>package.json</code> 文件中添加 <code>resolutions</code> 字段，在该字段下指定我们希望的版本：</p>
+<p>package.json</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;project&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;c&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:../c-1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;d2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:../d2-1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;resolutions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;d2/left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;c/**/left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.2&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>yarn install</code>。</p>
+<p>意思是说可以直接指定依赖 d2 所依赖的 left-pad 版本为 1.1.1。可惜 npm 官方并不支持这个参数，不过 github 上有一个第三方库支持了这个功能。</p>
+]]></content>
+      <tags>
+        <tag>yarn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Varnish 入门</title>
     <url>/2019/03/13/varnish-learn/</url>
     <content><![CDATA[<p>Varnish是一款高性能、开源的反向代理服务器，支持负载均衡，经常被用作缓存服务，能够极大的提高网站的响应速度。</p>
@@ -631,31 +656,6 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       </tags>
   </entry>
   <entry>
-    <title>Yarn resolutions</title>
-    <url>/2021/08/01/yarn-resolutions/</url>
-    <content><![CDATA[<p>Yarn 支持在工程的 package.json 文件中的 <code>resolutions</code> 字段里指定包的特定版本或者版本范围。</p>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>可能工程里的某个依赖的包A不是经常更新，但是这个包所依赖的包B有一个重要更新。这这种情况下，如果这个包A指定的依赖包B的版本范围没有覆盖到包B的最新版本的话，即重新安装依赖时，也不会安装到最新的包B，这时我们可能就要一直等待包A的作者更新了。</li>
-<li>当工程里的子依赖有一个重要的安全方面的更新，并且你不想等你直接依赖的包更新时</li>
-<li>当工程中某个依赖包正常运行，但是作者不再维护了。如果这个包某个依赖包有更新时，而且我们需要这个更新时。</li>
-<li>当工程中某个依赖包定义了一个很大范围的版本时，如果子依赖此时更新了一个最新版本存在bug，我们想退回之前的版本时，</li>
-</ul>
-<blockquote>
-<p>总的来说就是，我们希望指定工程直接依赖里的某个子依赖包的版本时，可以使用 <code>resolutions</code></p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>在 <code>package.json</code> 文件中添加 <code>resolutions</code> 字段，在该字段下指定我们希望的版本：</p>
-<p>package.json</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;project&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;c&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:../c-1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;d2&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:../d2-1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;resolutions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;d2/left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;c/**/left-pad&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.2&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>然后执行 <code>yarn install</code>。</p>
-<p>意思是说可以直接指定依赖 d2 所依赖的 left-pad 版本为 1.1.1。可惜 npm 官方并不支持这个参数，不过 github 上有一个第三方库支持了这个功能。</p>
-]]></content>
-      <tags>
-        <tag>yarn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flutter 入门</title>
     <url>/2022/09/09/yuque/Flutter%20%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="一、HelloWorld"><a href="#一、HelloWorld" class="headerlink" title="一、HelloWorld"></a>一、HelloWorld</h2><p>演示</p>
@@ -663,7 +663,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 
 <span id="more"></span>
 
-<h2 id="三、基础组件"><a href="#三、基础组件" class="headerlink" title="三、基础组件"></a>三、基础组件</h2><h4 id="1-Widget"><a href="#1-Widget" class="headerlink" title="1. Widget"></a>1. Widget</h4><p><img data-src="image.soonwang.cn/blog/Fomlx3Hx0tt9qQIi36qgKTrDwmBJ.svg"><br>State 生命周期如下：<br><img data-src="image.soonwang.cn/blog/FtPEC6MFor0AvA3f0Qtno1QADBcN.png"></p>
+<h2 id="三、基础组件"><a href="#三、基础组件" class="headerlink" title="三、基础组件"></a>三、基础组件</h2><h4 id="1-Widget"><a href="#1-Widget" class="headerlink" title="1. Widget"></a>1. Widget</h4><p><img data-src="http://image.soonwang.cn/blog/Fomlx3Hx0tt9qQIi36qgKTrDwmBJ.svg"><br>State 生命周期如下：<br><img data-src="http://image.soonwang.cn/blog/FtPEC6MFor0AvA3f0Qtno1QADBcN.png"></p>
 <h4 id="2-Text、TextSpan、WidgetSpan"><a href="#2-Text、TextSpan、WidgetSpan" class="headerlink" title="2. Text、TextSpan、WidgetSpan"></a>2. Text、TextSpan、WidgetSpan</h4><ul>
 <li>Text 显示文字</li>
 </ul>
