@@ -22,7 +22,13 @@
     "login": "soonwang",
     "repo": "blog",
     "onlyPublished": true,
-    "onlyPublic": true
+    "onlyPublic": true,
+    "imgCdn": {
+      "enabled": true,
+      "bucket": "blog-oversea",
+      "region": "as0",
+      "prefixKey": "blog"
+    }
   },
   "dependencies": {
     "hexo": "^5.0.0",
