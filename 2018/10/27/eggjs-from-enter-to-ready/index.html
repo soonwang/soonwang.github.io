@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/769ea022-22ba-4861-80c6-ebf837f6e429_176_315.svg">
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/8347fbea-a656-4971-ab24-9eb8a43e05cb_189_143.svg">
 <meta property="article:published_time" content="2018-10-27T09:35:20.000Z">
-<meta property="article:modified_time" content="2022-09-13T09:51:27.121Z">
+<meta property="article:modified_time" content="2022-09-13T09:51:38.866Z">
 <meta property="article:author" content="小木工">
 <meta property="article:tag" content="eggjs">
 <meta property="article:tag" content="javascript">
@@ -368,7 +368,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Application</span> = <span class="built_in">require</span>(options.<span class="property">framework</span>).<span class="property">Application</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Application</span>(options);</span><br><span class="line">process.<span class="title function_">send</span>(&#123; <span class="attr">to</span>: <span class="string">&#x27;master&#x27;</span>, <span class="attr">action</span>: <span class="string">&#x27;realport&#x27;</span>, <span class="attr">data</span>: port &#125;);</span><br><span class="line">app.<span class="title function_">ready</span>(startServer);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">startServer</span>(<span class="params"></span>) &#123;</span><br><span class="line">    server.<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>).<span class="title function_">createServer</span>(app.<span class="title function_">callback</span>());</span><br><span class="line">    server.<span class="title function_">listen</span>(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从上面可以知道，app_worker中执行了new Application()，并使用原生http（或https）模块启动一个server。当server执行listen方法时，触发了master中 forkAppWorkers方法中注册的listening回调事件</p>
 <blockquote>
-<p>cluster.on(‘listening’, (worker, address) =&gt; {…});</p>
+<p>cluster.on(‘listening’, (worker, address) &#x3D;&gt; {…});</p>
 </blockquote>
 <p>该回调事件中向maste发送了<code>app-start</code>事件。<br><code>app-start</code>的回调函数中在最后执行了</p>
 <blockquote>

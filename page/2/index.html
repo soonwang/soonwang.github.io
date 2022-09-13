@@ -366,8 +366,8 @@
 <ul>
 <li>安装vnc server，选择vnc4server，执行命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vnc4server</span><br></pre></td></tr></table></figure></li>
 <li>首次启动vncserver 执行命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vncserver</span><br></pre></td></tr></table></figure></li>
-<li>首次启动，需要输入密码和验证密码，以及一个是否设置【只读】密码，会保存在~/.vnc/passwd中</li>
-<li>启动时，往往会报错，此时在~/.vnc/中查看是否有xstartup文件，没有新增一个，默认可以写入<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ~/.vnc/xstartup </span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">xterm &amp;</span><br></pre></td></tr></table></figure></li>
+<li>首次启动，需要输入密码和验证密码，以及一个是否设置【只读】密码，会保存在~&#x2F;.vnc&#x2F;passwd中</li>
+<li>启动时，往往会报错，此时在~&#x2F;.vnc&#x2F;中查看是否有xstartup文件，没有新增一个，默认可以写入<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ~/.vnc/xstartup </span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">xterm &amp;</span><br></pre></td></tr></table></figure></li>
 <li>在vnc viewer中连接vnc server，ip+桌面号或者端口号，</li>
 </ul>
           <!--noindex-->

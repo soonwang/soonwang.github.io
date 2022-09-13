@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/95ab0e44-2624-46fb-8fd6-f0c0f0313ba8_2326_1596.jpg">
 <meta property="og:image" content="https://kaola-haitao.oss.kaolacdn.com/d6b0b8fb-d4e2-4a90-a8d3-fb9f987b6008_2144_1510.svg">
 <meta property="article:published_time" content="2018-08-05T20:02:11.000Z">
-<meta property="article:modified_time" content="2022-09-13T09:51:27.121Z">
+<meta property="article:modified_time" content="2022-09-13T09:51:38.866Z">
 <meta property="article:author" content="小木工">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="Vue">
@@ -341,7 +341,7 @@
 <p>flushCallbacks用于遍历callbacks并执行回调，并将pending设置为false，表示可以开始下一个tick。</p>
 <p>macroTimerFunc会依次从setImmediate，MessageChannel，setTimeout中取，而microTimerFunc则先检测浏览器是否原生支持Promise，不支持则指向macroTimerFunc的实现。这两个函数中都会异步调用flushCallbacks，默认使用microTimerFunc。</p>
 <p>看到这里，我们大概知道了nextTick做的事情了，可是之前的疑问还是没有得到答案啊，为什么修改了数据之后，需要在下一个tick里才会更新呢？好吧，接下来再去扒一扒源码。</p>
-<h2 id="2-响应式原理"><a href="#2-响应式原理" class="headerlink" title="2. 响应式原理"></a>2. 响应式原理</h2><p>Vue使用Object.defineProperty把对象的属性转为getter/setter，这是响应式的核心，也是Vue不支持IE8以及更低版本浏览器的原因。下面是从官网盗的一张图。<br><img data-src="https://kaola-haitao.oss.kaolacdn.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png" alt="image"></p>
+<h2 id="2-响应式原理"><a href="#2-响应式原理" class="headerlink" title="2. 响应式原理"></a>2. 响应式原理</h2><p>Vue使用Object.defineProperty把对象的属性转为getter&#x2F;setter，这是响应式的核心，也是Vue不支持IE8以及更低版本浏览器的原因。下面是从官网盗的一张图。<br><img data-src="https://kaola-haitao.oss.kaolacdn.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png" alt="image"></p>
 <p>从上图可以知道，Data变化之后会Notify Watcher，而Watcher又会触发re-render。哦，原来是这样，但是还是不知道为什么修改Data之后一定要nextTick，Dom才会更新啊，继续低头扒代码…</p>
 <h3 id="2-1-Observer"><a href="#2-1-Observer" class="headerlink" title="2.1 Observer"></a>2.1 Observer</h3><p>Vue的Observer类的实现在<code>src/core/observer/index.js</code>，为了省点墨水这里就不填代码了，少侠请<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue/blob/dev/src/core/observer/index.js">移步</a>。</p>
 <p><img data-src="https://kaola-haitao.oss.kaolacdn.com/c1bb3289-6c83-4279-b2eb-559600384d20_2118_1262.jpg" alt="image"></p>

@@ -25,37 +25,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CSS 包含块</title>
-    <url>/2019/08/30/css-containing-block/</url>
-    <content><![CDATA[<h2 id="确定包含块"><a href="#确定包含块" class="headerlink" title="确定包含块"></a>确定包含块</h2><ol>
-<li>position 为 static 或 relative，包含块 就是它最近的祖先<strong>块</strong>元素（比如：inline-block, block 或 list-item）或格式化上下文（BFC）的内容区</li>
-<li>position 为 absolute，包含块就是它最近的position 不是 static的祖先元素的内容区 + padding区</li>
-<li>position fixed，包含块是viewport</li>
-</ol>
-<span id="more"></span>
-
-<blockquote>
-<p>如果 position 是 absolute 或 fixed，包含块也可能是由满足以下条件的最近父级元素的内容区+padding区</p>
-</blockquote>
-<ol>
-<li>transform | perspective | filter 值不为none</li>
-<li>will-change: transform | perspective | filter(filter只在Firefox上生效)</li>
-<li>contain: paint (目前仅有chrome新版本支持)</li>
-</ol>
-<h2 id="根据包含块-计算-百分值"><a href="#根据包含块-计算-百分值" class="headerlink" title="根据包含块 计算 百分值"></a>根据包含块 计算 百分值</h2><ol>
-<li>要计算height、top、bottom 的百分值，是相对于包含块的height值。</li>
-<li>计算 width、left、right、padding、margin 这些属性由包含块的widt属性值来计算。</li>
-</ol>
-<h2 id="位置影响-left-right-top-bottom"><a href="#位置影响-left-right-top-bottom" class="headerlink" title="位置影响(left, right, top, bottom)"></a>位置影响(left, right, top, bottom)</h2><ol>
-<li>position relative 元素：针对 元素本身的移动，本身元素所占的盒模型位置不变，即不会影响 周围元素的位置</li>
-<li>position absolute 元素：针对其包含块的相对位置。比如：left: 0，则 该元素距离 包含块的左侧为0px</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>eggjs启动从回车到ready</title>
     <url>/2018/10/27/eggjs-from-enter-to-ready/</url>
     <content><![CDATA[<p>JavaScript代码是单线程运行的，因而一旦有未捕获的异常抛出线程就会挂掉，业务也就不可访问了，所以一般我们在使用koa，express，thinkjs等其他node框架时一般会使用pm2去管理node进程，保证业务的高可用性。而阿里开源的egg框架本身自带的egg-cluster模板已经帮我们做了这个事情，egg的多进程模型和进程间通信官方文档上写的已经很清楚了，今天学习一下源码，希望有所收获。</p>
@@ -143,7 +112,7 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Application</span> = <span class="built_in">require</span>(options.<span class="property">framework</span>).<span class="property">Application</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Application</span>(options);</span><br><span class="line">process.<span class="title function_">send</span>(&#123; <span class="attr">to</span>: <span class="string">&#x27;master&#x27;</span>, <span class="attr">action</span>: <span class="string">&#x27;realport&#x27;</span>, <span class="attr">data</span>: port &#125;);</span><br><span class="line">app.<span class="title function_">ready</span>(startServer);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">startServer</span>(<span class="params"></span>) &#123;</span><br><span class="line">    server.<span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>).<span class="title function_">createServer</span>(app.<span class="title function_">callback</span>());</span><br><span class="line">    server.<span class="title function_">listen</span>(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从上面可以知道，app_worker中执行了new Application()，并使用原生http（或https）模块启动一个server。当server执行listen方法时，触发了master中 forkAppWorkers方法中注册的listening回调事件</p>
 <blockquote>
-<p>cluster.on(‘listening’, (worker, address) =&gt; {…});</p>
+<p>cluster.on(‘listening’, (worker, address) &#x3D;&gt; {…});</p>
 </blockquote>
 <p>该回调事件中向maste发送了<code>app-start</code>事件。<br><code>app-start</code>的回调函数中在最后执行了</p>
 <blockquote>
@@ -158,6 +127,37 @@
       <tags>
         <tag>eggjs</tag>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS 包含块</title>
+    <url>/2019/08/30/css-containing-block/</url>
+    <content><![CDATA[<h2 id="确定包含块"><a href="#确定包含块" class="headerlink" title="确定包含块"></a>确定包含块</h2><ol>
+<li>position 为 static 或 relative，包含块 就是它最近的祖先<strong>块</strong>元素（比如：inline-block, block 或 list-item）或格式化上下文（BFC）的内容区</li>
+<li>position 为 absolute，包含块就是它最近的position 不是 static的祖先元素的内容区 + padding区</li>
+<li>position fixed，包含块是viewport</li>
+</ol>
+<span id="more"></span>
+
+<blockquote>
+<p>如果 position 是 absolute 或 fixed，包含块也可能是由满足以下条件的最近父级元素的内容区+padding区</p>
+</blockquote>
+<ol>
+<li>transform | perspective | filter 值不为none</li>
+<li>will-change: transform | perspective | filter(filter只在Firefox上生效)</li>
+<li>contain: paint (目前仅有chrome新版本支持)</li>
+</ol>
+<h2 id="根据包含块-计算-百分值"><a href="#根据包含块-计算-百分值" class="headerlink" title="根据包含块 计算 百分值"></a>根据包含块 计算 百分值</h2><ol>
+<li>要计算height、top、bottom 的百分值，是相对于包含块的height值。</li>
+<li>计算 width、left、right、padding、margin 这些属性由包含块的widt属性值来计算。</li>
+</ol>
+<h2 id="位置影响-left-right-top-bottom"><a href="#位置影响-left-right-top-bottom" class="headerlink" title="位置影响(left, right, top, bottom)"></a>位置影响(left, right, top, bottom)</h2><ol>
+<li>position relative 元素：针对 元素本身的移动，本身元素所占的盒模型位置不变，即不会影响 周围元素的位置</li>
+<li>position absolute 元素：针对其包含块的相对位置。比如：left: 0，则 该元素距离 包含块的左侧为0px</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -210,28 +210,14 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       </tags>
   </entry>
   <entry>
-    <title>记录一些函数</title>
-    <url>/2017/02/09/javascript-some-function/</url>
-    <content><![CDATA[<h4 id="将-ffffff转化成rgb-255-255-255"><a href="#将-ffffff转化成rgb-255-255-255" class="headerlink" title="将#ffffff转化成rgb(255,255,255)"></a>将#ffffff转化成rgb(255,255,255)</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">colorTranslator</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> arrColor = str.<span class="title function_">slice</span>(<span class="number">1</span>).<span class="title function_">match</span>(<span class="regexp">/\w&#123;2&#125;/g</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;agb(&#x27;</span>+ arrColor.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">16</span>) || <span class="number">0</span>).<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>) +<span class="string">&#x27;)&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">colorTranslator</span>(<span class="string">&#x27;#ffffff&#x27;</span>))</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-
-<h4 id="将’get-element-by-id’转化成驼峰式’getElementById’"><a href="#将’get-element-by-id’转化成驼峰式’getElementById’" class="headerlink" title="将’get-element-by-id’转化成驼峰式’getElementById’"></a>将’get-element-by-id’转化成驼峰式’getElementById’</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> camel = <span class="keyword">function</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  str.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(index === <span class="number">0</span>) &#123;</span><br><span class="line">      newStr += item</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr += item.<span class="title function_">charAt</span>(<span class="number">0</span>).<span class="title function_">toUpperCase</span>() + item.<span class="title function_">slice</span>(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> newStr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">camel</span>(foo))</span><br></pre></td></tr></table></figure>
-<p>Vue里的做法是通过正则表达式</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"><span class="keyword">var</span> camelizeRE = <span class="regexp">/-(\w)/g</span></span><br><span class="line"><span class="keyword">var</span> camelize = <span class="keyword">function</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">replace</span>(camelizeRE, <span class="function">(<span class="params">_, c</span>) =&gt;</span> c ? c.<span class="title function_">toUpperCase</span>() : <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">camelize</span>(foo))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>kali2安装vnc server记录</title>
     <url>/2018/01/12/kali-install-vncsever/</url>
     <content><![CDATA[<p>在kali2上安装vnc server的过程中遇到一些问题，记录总结下</p>
 <ul>
 <li>安装vnc server，选择vnc4server，执行命令<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vnc4server</span><br></pre></td></tr></table></figure></li>
 <li>首次启动vncserver 执行命令 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vncserver</span><br></pre></td></tr></table></figure></li>
-<li>首次启动，需要输入密码和验证密码，以及一个是否设置【只读】密码，会保存在~/.vnc/passwd中</li>
-<li>启动时，往往会报错，此时在~/.vnc/中查看是否有xstartup文件，没有新增一个，默认可以写入<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ~/.vnc/xstartup </span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">xterm &amp;</span><br></pre></td></tr></table></figure></li>
+<li>首次启动，需要输入密码和验证密码，以及一个是否设置【只读】密码，会保存在~&#x2F;.vnc&#x2F;passwd中</li>
+<li>启动时，往往会报错，此时在~&#x2F;.vnc&#x2F;中查看是否有xstartup文件，没有新增一个，默认可以写入<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> ~/.vnc/xstartup </span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">xterm &amp;</span><br></pre></td></tr></table></figure></li>
 <li>在vnc viewer中连接vnc server，ip+桌面号或者端口号，</li>
 </ul>
 <span id="more"></span>
@@ -247,7 +233,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 <h3 id="vnc-viewer连接之后的显示问题"><a href="#vnc-viewer连接之后的显示问题" class="headerlink" title="vnc viewer连接之后的显示问题"></a>vnc viewer连接之后的显示问题</h3><p>若使用上面提供的xstartup代码，连接之后会发现只有个终端，这个效果肯定不是我们希望的，甚至还不如直接ssh登录呢！所以，要搞出桌面。</p>
 <ul>
 <li>安装桌面<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install gnome-core xfce4</span><br></pre></td></tr></table></figure></li>
-<li>配置~/.vnc/xstartup文件</li>
+<li>配置~&#x2F;.vnc&#x2F;xstartup文件</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">unset</span> SESSION_MANAGER</span><br><span class="line"><span class="built_in">unset</span> DBUS_SESSION_BUS_ADDRESS</span><br><span class="line">startxfce4 &amp;</span><br><span class="line">[ -x /etc/vnc/xstartup ] &amp;&amp; <span class="built_in">exec</span> /etc/vnc/xstartup</span><br><span class="line">[ -r <span class="variable">$HOME</span>/.Xresources ] &amp;&amp; xrdb <span class="variable">$HOME</span>/.Xresources</span><br><span class="line">xsetroot -solid grey</span><br><span class="line">vncconfig -iconic &amp;</span><br></pre></td></tr></table></figure>
 
@@ -273,6 +259,20 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
       </tags>
   </entry>
   <entry>
+    <title>记录一些函数</title>
+    <url>/2017/02/09/javascript-some-function/</url>
+    <content><![CDATA[<h4 id="将-ffffff转化成rgb-255-255-255"><a href="#将-ffffff转化成rgb-255-255-255" class="headerlink" title="将#ffffff转化成rgb(255,255,255)"></a>将#ffffff转化成rgb(255,255,255)</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">colorTranslator</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> arrColor = str.<span class="title function_">slice</span>(<span class="number">1</span>).<span class="title function_">match</span>(<span class="regexp">/\w&#123;2&#125;/g</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;agb(&#x27;</span>+ arrColor.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">16</span>) || <span class="number">0</span>).<span class="title function_">join</span>(<span class="string">&#x27;,&#x27;</span>) +<span class="string">&#x27;)&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">colorTranslator</span>(<span class="string">&#x27;#ffffff&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h4 id="将’get-element-by-id’转化成驼峰式’getElementById’"><a href="#将’get-element-by-id’转化成驼峰式’getElementById’" class="headerlink" title="将’get-element-by-id’转化成驼峰式’getElementById’"></a>将’get-element-by-id’转化成驼峰式’getElementById’</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> camel = <span class="keyword">function</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> newStr = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  str.<span class="title function_">split</span>(<span class="string">&#x27;-&#x27;</span>).<span class="title function_">map</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(index === <span class="number">0</span>) &#123;</span><br><span class="line">      newStr += item</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      newStr += item.<span class="title function_">charAt</span>(<span class="number">0</span>).<span class="title function_">toUpperCase</span>() + item.<span class="title function_">slice</span>(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> newStr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">camel</span>(foo))</span><br></pre></td></tr></table></figure>
+<p>Vue里的做法是通过正则表达式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="string">&#x27;get-element-by-id&#x27;</span></span><br><span class="line"><span class="keyword">var</span> camelizeRE = <span class="regexp">/-(\w)/g</span></span><br><span class="line"><span class="keyword">var</span> camelize = <span class="keyword">function</span>(<span class="params">str</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">replace</span>(camelizeRE, <span class="function">(<span class="params">_, c</span>) =&gt;</span> c ? c.<span class="title function_">toUpperCase</span>() : <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">camelize</span>(foo))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>monorepo commit 加速【第二弹】</title>
     <url>/2022/09/04/monorepo-commit-speed-up/</url>
     <content><![CDATA[<p>随着业务的发展，monorepo 工程越来越大~</p>
@@ -292,7 +292,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 <p>新增了上面列出的两项配置：root、parserOptions，把需要构建生成 ts 类型的文件范围缩小到当前子目录。在实际测试中：</p>
 <ul>
 <li>配置前，提交一个 ts 文件耗时 1min 1s</li>
-<li>配置后，提交一个 ts 文件耗时 25s<br>基本是符合预期的，但是总体速度还是很慢，优化不明显，而且还带来额外的问题<br>带来的问题<br>由于缩小了构建生成 TS 类型的文件范围，所以当 features/common 和 features/pc 目录下文件类型有变化，而apps/clm 中未对应修改时，在 commit 时 lint 会忽略，不会拦截成功，存在一定风险。</li>
+<li>配置后，提交一个 ts 文件耗时 25s<br>基本是符合预期的，但是总体速度还是很慢，优化不明显，而且还带来额外的问题<br>带来的问题<br>由于缩小了构建生成 TS 类型的文件范围，所以当 features&#x2F;common 和 features&#x2F;pc 目录下文件类型有变化，而apps&#x2F;clm 中未对应修改时，在 commit 时 lint 会忽略，不会拦截成功，存在一定风险。</li>
 </ul>
 <h2 id="新方案尝试"><a href="#新方案尝试" class="headerlink" title="新方案尝试"></a>新方案尝试</h2><p>本次优化的目标：加快本地提交的速度，同时不能牺牲代码质量<br>为了加快本地 commit 速度，需要把耗时最久的 type-aware 相关的 rules 在 husky 时忽略，然后在 CI 时校验所有 rules，并及时通知校验结果。为了保证最终合代码时的质量，开启 MR 校验拦截。<br>大致思路如下：<br><img data-src="/images/monorepo-commit-speed-up/monorepo-commit-speed.excalidraw.png" alt="图片"></p>
 <h3 id="1-配置-lint-staged-时关闭-type-aware-rules"><a href="#1-配置-lint-staged-时关闭-type-aware-rules" class="headerlink" title="1. 配置 lint-staged 时关闭 type-aware rules"></a>1. 配置 lint-staged 时关闭 type-aware rules</h3><p>package.json: </p>
@@ -377,7 +377,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 <blockquote>
 <p><strong>We strongly recommend you do use type-aware linting</strong>, but the above information is included so that you can make your own, informed decision.</p>
 </blockquote>
-<p>通过这篇文章，可以知道由于使用了「@typescript-eslint/recommended-requiring-type-checking」插件，会执行在执行 lint 前，为了校验 ts 的类型是否正确，从而去编译工程，而校验的范围由这么几个配置决定：</p>
+<p>通过这篇文章，可以知道由于使用了「@typescript-eslint&#x2F;recommended-requiring-type-checking」插件，会执行在执行 lint 前，为了校验 ts 的类型是否正确，从而去编译工程，而校验的范围由这么几个配置决定：</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">   <span class="attr">root</span>: <span class="literal">true</span>,</span><br><span class="line">+  <span class="attr">parserOptions</span>: &#123;</span><br><span class="line">+    <span class="attr">tsconfigRootDir</span>: __dirname,</span><br><span class="line">+    <span class="attr">project</span>: [<span class="string">&#x27;./tsconfig.json&#x27;</span>],</span><br><span class="line">+  &#125;,</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>其中，parserOptions.tsconfigRootDir 告诉解析器项目根目录绝对路径，从而保证不会超过这个范围。parserOptions.project 告诉解析器配置文件 tsconfig.json 的相对路劲。</p>
@@ -475,8 +475,8 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 <p>varnish的默认配置文件位置位于<code>/usr/local/etc/varnish/default.vcl</code></p>
 <p>通过homebrew安装的varnish，在调试配置文件时使用varnishlog会提示<code>VSM: Could not get hold of varnishd, is it running?</code></p>
 <h2 id="Varnish-配置语言-VCL"><a href="#Varnish-配置语言-VCL" class="headerlink" title="Varnish 配置语言 VCL"></a>Varnish 配置语言 VCL</h2><h3 id="运算符-Operator"><a href="#运算符-Operator" class="headerlink" title="运算符 Operator"></a>运算符 Operator</h3><ul>
-<li>= 赋值</li>
-<li>== 比较</li>
+<li>&#x3D; 赋值</li>
+<li>&#x3D;&#x3D; 比较</li>
 <li>~ 匹配，可以使用正则表达式，或者ACLs</li>
 <li>! 否定</li>
 <li>&amp;&amp; 逻辑与</li>
@@ -818,7 +818,7 @@ plugin 声明即 规则集已经准备好，下一步就是我们要决定在工
 <p>flushCallbacks用于遍历callbacks并执行回调，并将pending设置为false，表示可以开始下一个tick。</p>
 <p>macroTimerFunc会依次从setImmediate，MessageChannel，setTimeout中取，而microTimerFunc则先检测浏览器是否原生支持Promise，不支持则指向macroTimerFunc的实现。这两个函数中都会异步调用flushCallbacks，默认使用microTimerFunc。</p>
 <p>看到这里，我们大概知道了nextTick做的事情了，可是之前的疑问还是没有得到答案啊，为什么修改了数据之后，需要在下一个tick里才会更新呢？好吧，接下来再去扒一扒源码。</p>
-<h2 id="2-响应式原理"><a href="#2-响应式原理" class="headerlink" title="2. 响应式原理"></a>2. 响应式原理</h2><p>Vue使用Object.defineProperty把对象的属性转为getter/setter，这是响应式的核心，也是Vue不支持IE8以及更低版本浏览器的原因。下面是从官网盗的一张图。<br><img data-src="https://kaola-haitao.oss.kaolacdn.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png" alt="image"></p>
+<h2 id="2-响应式原理"><a href="#2-响应式原理" class="headerlink" title="2. 响应式原理"></a>2. 响应式原理</h2><p>Vue使用Object.defineProperty把对象的属性转为getter&#x2F;setter，这是响应式的核心，也是Vue不支持IE8以及更低版本浏览器的原因。下面是从官网盗的一张图。<br><img data-src="https://kaola-haitao.oss.kaolacdn.com/58ee9280-643d-45e7-86dd-2f9f2726ff13_1200_750.png" alt="image"></p>
 <p>从上图可以知道，Data变化之后会Notify Watcher，而Watcher又会触发re-render。哦，原来是这样，但是还是不知道为什么修改Data之后一定要nextTick，Dom才会更新啊，继续低头扒代码…</p>
 <h3 id="2-1-Observer"><a href="#2-1-Observer" class="headerlink" title="2.1 Observer"></a>2.1 Observer</h3><p>Vue的Observer类的实现在<code>src/core/observer/index.js</code>，为了省点墨水这里就不填代码了，少侠请<a href="https://github.com/vuejs/vue/blob/dev/src/core/observer/index.js">移步</a>。</p>
 <p><img data-src="https://kaola-haitao.oss.kaolacdn.com/c1bb3289-6c83-4279-b2eb-559600384d20_2118_1262.jpg" alt="image"></p>

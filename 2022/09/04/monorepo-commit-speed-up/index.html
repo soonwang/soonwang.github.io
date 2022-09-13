@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/eslintrc-config.png">
 <meta property="og:image" content="http://soonwang.cn/images/monorepo-commit-speed-up/eslint-cache-strategy.png">
 <meta property="article:published_time" content="2022-09-04T15:36:39.000Z">
-<meta property="article:modified_time" content="2022-09-13T09:51:27.121Z">
+<meta property="article:modified_time" content="2022-09-13T09:51:38.866Z">
 <meta property="article:author" content="小木工">
 <meta property="article:tag" content="eslint">
 <meta property="article:tag" content="monorepo">
@@ -305,7 +305,7 @@
 <p>新增了上面列出的两项配置：root、parserOptions，把需要构建生成 ts 类型的文件范围缩小到当前子目录。在实际测试中：</p>
 <ul>
 <li>配置前，提交一个 ts 文件耗时 1min 1s</li>
-<li>配置后，提交一个 ts 文件耗时 25s<br>基本是符合预期的，但是总体速度还是很慢，优化不明显，而且还带来额外的问题<br>带来的问题<br>由于缩小了构建生成 TS 类型的文件范围，所以当 features/common 和 features/pc 目录下文件类型有变化，而apps/clm 中未对应修改时，在 commit 时 lint 会忽略，不会拦截成功，存在一定风险。</li>
+<li>配置后，提交一个 ts 文件耗时 25s<br>基本是符合预期的，但是总体速度还是很慢，优化不明显，而且还带来额外的问题<br>带来的问题<br>由于缩小了构建生成 TS 类型的文件范围，所以当 features&#x2F;common 和 features&#x2F;pc 目录下文件类型有变化，而apps&#x2F;clm 中未对应修改时，在 commit 时 lint 会忽略，不会拦截成功，存在一定风险。</li>
 </ul>
 <h2 id="新方案尝试"><a href="#新方案尝试" class="headerlink" title="新方案尝试"></a>新方案尝试</h2><p>本次优化的目标：加快本地提交的速度，同时不能牺牲代码质量<br>为了加快本地 commit 速度，需要把耗时最久的 type-aware 相关的 rules 在 husky 时忽略，然后在 CI 时校验所有 rules，并及时通知校验结果。为了保证最终合代码时的质量，开启 MR 校验拦截。<br>大致思路如下：<br><img data-src="/images/monorepo-commit-speed-up/monorepo-commit-speed.excalidraw.png" alt="图片"></p>
 <h3 id="1-配置-lint-staged-时关闭-type-aware-rules"><a href="#1-配置-lint-staged-时关闭-type-aware-rules" class="headerlink" title="1. 配置 lint-staged 时关闭 type-aware rules"></a>1. 配置 lint-staged 时关闭 type-aware rules</h3><p>package.json: </p>
