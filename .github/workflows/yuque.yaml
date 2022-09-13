@@ -27,7 +27,7 @@ jobs:
             ${{ runner.OS }}-npm-cache
 
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
 
       - name: Sync yuque
         env:
