@@ -7,7 +7,7 @@ on:
       - start
 
 jobs:
-  pages:
+  yuque:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -29,7 +29,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: 拉取语雀文章
+      - name: Sync yuque
         env:
           YUQUE_TOKEN: ${{ secrets.YUQUE_TOKEN }}
           SECRET_ID: ${{ secrets.SECRET_ID }}
@@ -38,18 +38,27 @@ jobs:
           npm run yuque:clean
           npm run yuque:sync
 
-      - name: 配置 Git 用户名邮箱
-        run: |
-          git config --global user.name "soonwang"
-          git config --global usr.email "wangsong3635@outlook.com"
-
       - name: Git Commit
         run: |
+          git config --local user.name "soonwang"
+          git config --local user.email "wangsong3635@outlook.com"
           echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.txt
           git add .
           git commit -m "Refresh yuque json" -a
 
-      - name: 推送文章到仓库
+      - name: Git Push
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: |
+          npm run hexo:clean
+          npm run hexo:build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages  # deploying branch
