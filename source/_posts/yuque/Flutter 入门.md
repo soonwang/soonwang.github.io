@@ -27,7 +27,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 ![](https://image.soonwang.cn/blog/Fomlx3Hx0tt9qQIi36qgKTrDwmBJ.svg)
 State 生命周期如下：
-![](https://image.soonwang.cn/blog/FvjP2bzAp789oxW5bVLUPjWX-bFf.png)
+![](https://image.soonwang.cn/blog/FnV-6tdxc70JMHWl39tYf2qF0bNg.png)
 
 #### 2. Text、TextSpan、WidgetSpan
 
