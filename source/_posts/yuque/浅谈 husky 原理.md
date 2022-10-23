@@ -2,7 +2,8 @@
 title: 浅谈 husky 原理
 urlname: hgpg7a
 date: '2022-10-23 14:47:16 +0000'
-tags: []
+tags:
+  - husky
 categories: []
 ---
 
@@ -28,6 +29,8 @@ npm i husky lint-staged -g
   }
 }
 ```
+
+<!-- more -->
 
 执行完上面操作后，自信满满地修改了某个 tsx 文件，并故意违反某条 eslint 配置，一顿 git 命令执行完，发现居然 commit 成功了，这就意味着 husky 配置没生效，:(。
 心里想着这不科学啊，然后在 github 上找到了 [husky 源码](https://github.com/typicode/husky)，原来 husky 升级了，break change ，surprise !
@@ -72,14 +75,14 @@ const { error } = git(["config", "core.hooksPath", dir]);
 
 这里 `git config core.hooksPath .husky`看字面意思就是重新设置 git hooks 的目录，默认的 git hooks 目录就像上面叙述的，是 `.git/hooks`，所以这个命令很明显就是替换这个目录，这样一切就解释的通了，豁然开朗的感觉！
 
-![](https://image.soonwang.cn/blog/Fr-CqsIMj3UDOcNinzu-RqcqD-I5.png)
+![](https://image.soonwang.cn/blog/Ftfsm52z946IAEOBdSXRwke16Sel.png)
 到现在可以说基本解答了疑惑，但是八卦的我还有一个疑问，既然有这么好用的一个 git 配置，为啥 husky 是另外的机制呢（直接修改 .git/hooks/ 目录下的 hook 文件）？
 这个疑问最终在 StackOverflow 找到了答案：
 [https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath](https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath)
-![](https://image.soonwang.cn/blog/Fv7sFdVwwmTxG9s4TAgy1oIfyvDv.png)
+![](https://image.soonwang.cn/blog/Fijop50t4Qq8w1pxdNvOx9EyfRRR.png)
 原因就是`git config core.hooksPath`这个命令是在 Git v2.9.0 版本才支持的。
 在 2016.05.05 提交的 commit 中支持了该命令[https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643](https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643)
 那 husky 大概是什么时候创建的呢，通过查看 issues，我们可以发现第一个 issue 是在 2014 年，远比这个 commit 时期早！
 [https://github.com/typicode/husky/issues/1](https://github.com/typicode/husky/issues/1)
-![](https://image.soonwang.cn/blog/Fs4fhre-peuuEAyvbqPDyAcYhhlC.png)
+![](https://image.soonwang.cn/blog/FtKWDXtlSVjeCIO5NPgutAVDgOnt.png)
 真·完结·撒花！
