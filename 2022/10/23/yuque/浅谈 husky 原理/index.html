@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="有个小站">
 <meta property="og:description" content="最近在搭建新工程时，想给工程配置 eslint 约定一下代码规范，配置完 eslint 之后，有想着可以更进一步配置一个强校验，即不符合 eslint 配置的代码，希望在代码提交时就拦截并给出提示。面对这个场景自然而然就想到了 husky + lint-staged的配置，说干就干。  首先是安装依赖，在工程根目录下执行以下命令：  1npm i husky lint-staged -g   接着">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.soonwang.cn/blog/Ftfsm52z946IAEOBdSXRwke16Sel.png">
-<meta property="og:image" content="https://image.soonwang.cn/blog/Fijop50t4Qq8w1pxdNvOx9EyfRRR.png">
-<meta property="og:image" content="https://image.soonwang.cn/blog/FtKWDXtlSVjeCIO5NPgutAVDgOnt.png">
+<meta property="og:image" content="https://image.soonwang.cn/blog/FsII3yYDAEv7dsRY8Huzz27VivR4.png">
+<meta property="og:image" content="https://image.soonwang.cn/blog/Flba7DK_LHAUzfv-tTWLCVaA1x8u.png">
+<meta property="og:image" content="https://image.soonwang.cn/blog/FnFfvNAr44j4dWA6_jLZthHtnyT9.png">
 <meta property="article:published_time" content="2022-10-23T14:47:16.000Z">
-<meta property="article:modified_time" content="2022-10-23T16:02:28.592Z">
+<meta property="article:modified_time" content="2022-10-23T16:13:47.703Z">
 <meta property="article:author" content="小木工">
 <meta property="article:tag" content="husky">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://image.soonwang.cn/blog/Ftfsm52z946IAEOBdSXRwke16Sel.png">
+<meta name="twitter:image" content="https://image.soonwang.cn/blog/FsII3yYDAEv7dsRY8Huzz27VivR4.png">
 
 
 <link rel="canonical" href="http://soonwang.cn/2022/10/23/yuque/%E6%B5%85%E8%B0%88%20husky%20%E5%8E%9F%E7%90%86/">
@@ -312,7 +312,7 @@
 <li>最后执行 <code>git config core.hooksPath .husky</code>，将 <code>.husky</code>目录配置为新的 git hooks 目录</li>
 </ol>
 <p>这里 <code>git config core.hooksPath .husky</code>看字面意思就是重新设置 git hooks 的目录，默认的 git hooks 目录就像上面叙述的，是 <code>.git/hooks</code>，所以这个命令很明显就是替换这个目录，这样一切就解释的通了，豁然开朗的感觉！</p>
-<p><img data-src="https://image.soonwang.cn/blog/Ftfsm52z946IAEOBdSXRwke16Sel.png"><br>到现在可以说基本解答了疑惑，但是八卦的我还有一个疑问，既然有这么好用的一个 git 配置，为啥 husky 是另外的机制呢（直接修改 .git&#x2F;hooks&#x2F; 目录下的 hook 文件）？<br>这个疑问最终在 StackOverflow 找到了答案：<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath">https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath</a><br><img data-src="https://image.soonwang.cn/blog/Fijop50t4Qq8w1pxdNvOx9EyfRRR.png"><br>原因就是<code>git config core.hooksPath</code>这个命令是在 Git v2.9.0 版本才支持的。<br>在 2016.05.05 提交的 commit 中支持了该命令<a target="_blank" rel="noopener" href="https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643">https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643</a><br>那 husky 大概是什么时候创建的呢，通过查看 issues，我们可以发现第一个 issue 是在 2014 年，远比这个 commit 时期早！<br><a target="_blank" rel="noopener" href="https://github.com/typicode/husky/issues/1">https://github.com/typicode/husky/issues/1</a><br><img data-src="https://image.soonwang.cn/blog/FtKWDXtlSVjeCIO5NPgutAVDgOnt.png"><br>真·完结·撒花！</p>
+<p><img data-src="https://image.soonwang.cn/blog/FsII3yYDAEv7dsRY8Huzz27VivR4.png"><br>到现在可以说基本解答了疑惑，但是八卦的我还有一个疑问，既然有这么好用的一个 git 配置，为啥 husky 是另外的机制呢（直接修改 .git&#x2F;hooks&#x2F; 目录下的 hook 文件）？<br>这个疑问最终在 StackOverflow 找到了答案：<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath">https://stackoverflow.com/questions/39332407/git-hooks-applying-git-config-core-hookspath</a><br><img data-src="https://image.soonwang.cn/blog/Flba7DK_LHAUzfv-tTWLCVaA1x8u.png"><br>原因就是<code>git config core.hooksPath</code>这个命令是在 Git v2.9.0 版本才支持的。<br>在 2016.05.05 提交的 commit 中支持了该命令<a target="_blank" rel="noopener" href="https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643">https://github.com/git/git/commit/867ad08a2610526edb5723804723d371136fc643</a><br>那 husky 大概是什么时候创建的呢，通过查看 issues，我们可以发现第一个 issue 是在 2014 年，远比这个 commit 时期早！<br><a target="_blank" rel="noopener" href="https://github.com/typicode/husky/issues/1">https://github.com/typicode/husky/issues/1</a><br><img data-src="https://image.soonwang.cn/blog/FnFfvNAr44j4dWA6_jLZthHtnyT9.png"><br>真·完结·撒花！</p>
 
     </div>
 
